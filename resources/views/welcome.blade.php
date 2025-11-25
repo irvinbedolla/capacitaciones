@@ -201,14 +201,9 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('users.create') }}" class="btn btn-primary">Crear Cuenta</a>
-                    </li>
                 </ul>
                 <form class="d-flex" role="search">
-                <a href="{{ route('login') }}" class="btn btn-outline-success" type="submit">
-                    Iniciar
-                </a>
+                <a href="{{ route('users.create') }}" class="btn btn-primary">Crear Cuenta</a>
                 </form>
             </div>
             </div>
@@ -256,13 +251,13 @@
             </svg>
             <div class="container">
               <div class="carousel-caption text-start">
-                <h1>Example headline.</h1>
+                <h1>CONACENTROS.</h1>
                 <p class="opacity-75">
-                  Some representative placeholder content for the first slide of
-                  the carousel.
+                  Aqui va el texto para describir los cursos.
                 </p>
+                <img src="../capacitaciones/public/assets/images/ccl-r.png" alt="Logo" ><br><br>
                 <p>
-                  <a class="btn btn-lg btn-primary" href="#">Sign up today</a>
+                  <a href="{{ route('login') }}" class="btn btn-lg btn-primary">Iniciar</a>
                 </p>
               </div>
             </div>
@@ -355,19 +350,21 @@
               preserveAspectRatio="xMidYMid slice"
               role="img"
               width="140"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+              xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="imagenFondo" patternUnits="userSpaceOnUse" width="100" height="100">
+                  <image href="../capacitaciones/public/assets/images/ponentes/andres.jpg" x="0" y="0" width="100" height="100" />
+              </pattern>
+            </defs>
               <title>Placeholder</title>
               <rect
                 width="100%"
                 height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
+                fill="url(#imagenFondo)"></rect>
             </svg>
-            <h2 class="fw-normal">Heading</h2>
+            <h2 class="fw-normal">Ándres Medina Guzmán</h2>
             <p>
-              Some representative placeholder content for the three columns of
-              text below the carousel. This is the first column.
+              Dirrector General del Centro de Conciliación Larobal del Estado de Michoacan de Ocamapo.
             </p>
             <p>
               <a class="btn btn-secondary" href="#">View details &raquo;</a>
@@ -435,12 +432,11 @@
         <div class="row featurette">
           <div class="col-md-7">
             <h2 class="featurette-heading fw-normal lh-1">
-              First featurette heading.
-              <span class="text-body-secondary">It’ll blow your mind.</span>
+              Seminario 1.<br>
+              <span class="text-body-secondary">FUNDAMENTOS DE LA CONCILIACION Y LA JUSTICIAL LABORAL.</span>
             </h2>
             <p class="lead">
-              Some great placeholder content for the first featurette here.
-              Imagine some exciting prose here.
+              Objetivo:......
             </p>
           </div>
           <div class="col-md-5">

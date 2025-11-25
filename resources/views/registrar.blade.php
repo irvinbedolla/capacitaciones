@@ -113,7 +113,7 @@
                        </button>
                 </div>
             @endif
-            <form class='needs-validation novalidate' id='form_roles' method='POST' action="{{route('usuarios.store')}}">
+            <form class='needs-validation novalidate' id='form_roles' method='POST' action="{{route('store_public')}}">
                 @csrf
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-6">
@@ -126,40 +126,40 @@
                         </div>
                     </div>
                                     
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="email" class="form-control" name="email" required>
-                                            <div class="invalid-feedback">
-                                                El Email es obligatorio.
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email" required>
+                            <div class="invalid-feedback">
+                                El Email es obligatorio.
+                            </div>
+                        </div>
+                    </div>
                                    
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="password">Password</label>
-                                            <input type="password" class="form-control" name="password" required>
-                                            <div class="invalid-feedback">
-                                                La contraseña es obligatoria.
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" name="password" required>
+                            <div class="invalid-feedback">
+                                La contraseña es obligatoria.
+                            </div>
+                        </div>
+                    </div>
                                     
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="confirm-password">Confirmar Password</label>
-                                            <input type="password" class="form-control" name="confirm-password" required>
-                                            <div class="invalid-feedback">
-                                                La contraseña es obligatoria.
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label for="confirm-password">Confirmar Password</label>
+                            <input type="password" class="form-control" name="confirm-password" required>
+                            <div class="invalid-feedback">
+                                La contraseña es obligatoria.
+                            </div>
+                        </div>
+                    </div>
                                     
                                     
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                </div>
-                            </form>   
+                    <div class="col-xs-12 col-sm-12 col-md-6"><br>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+            </div>
+        </form>   
 </div>

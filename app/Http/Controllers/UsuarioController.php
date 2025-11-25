@@ -59,6 +59,30 @@ class UsuarioController extends Controller
         return view('registrar');
     }
 
+    public function store_public(Request $request)
+    {        
+        $data = $request->all();
+
+        //Validar documentacion
+        request()->validate([
+            'name'      => 'required',
+            'email'     => 'required|email|unique:users,email,',
+            'password'  => 'required|same:confirm-password',
+        ], $data);
+
+
+        $input = $request->all();
+        //Hacemos un hash del campo que tiene el password
+        $input['password'] = Hash::make($input['password']);
+
+        $user = User::create($input);
+        //Documentación de spatie para asignar roles
+        $user->assignRole($request->input('Capacitacion Usuario'));
+
+        return redirect()->route('usuarios');
+
+    }
+
     public function edit($id)
     {
         //Se invocan los dos modelos User y rol

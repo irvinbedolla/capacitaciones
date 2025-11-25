@@ -6,7 +6,7 @@
     <title>@yield('title') | SICCL</title>
 
     <!-- General CSS Files -->
-    <link href="public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../capacitaciones/public/assets/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Template CSS -->
     <link href="public/assets/css/style.css" rel="stylesheet">

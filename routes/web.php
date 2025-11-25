@@ -39,8 +39,8 @@ use Illuminate\Support\Facades\Auth;
         return view('../public/welcome');
     });
 
-    Route::get('create',     [UsuarioController::class, 'crear'])->name('users.create');
-    Route::post('/usuarios/stores',          [UsuarioController::class, 'store'])->name('users.store');
+    Route::get('create',                    [UsuarioController::class, 'crear'])->name('users.create');
+    Route::post('/usuarios/guardar',        [UsuarioController::class, 'store_public'])->name('store_public');
 
 Route::middleware(['auth', 'verified'])->group(function () {
 

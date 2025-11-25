@@ -23,12 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'last_login_at',
-        'last_login_ip',
-        'profile_photo_path',
-        'type',
         'remember_token',
-        'delegacion',
     ];
 
     /**
