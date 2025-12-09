@@ -14,10 +14,10 @@
         rel="canonical"
         href="https://getbootstrap.com/docs/5.3/examples/carousel/"
         />
-        <script src="../../public/assets/js/color-modes.js"></script>
-        <link href="../../public/assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="public/assets/js/color-modes.js"></script>
+        <link href="public/assets/dist/css/bootstrap.min.css" rel="stylesheet" />
         <meta name="theme-color" content="#712cf9" />
-        <link href="../../public/assets/carousel.css" rel="stylesheet" />
+        <link href="public/assets/carousel.css" rel="stylesheet" />
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
