@@ -14,10 +14,10 @@
         rel="canonical"
         href="https://getbootstrap.com/docs/5.3/examples/carousel/"
         />
-        <script src="../capacitaciones/public/assets/js/color-modes.js"></script>
-        <link href="../capacitaciones/public/assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="public/assets/js/color-modes.js"></script>
+        <link href="public/assets/dist/css/bootstrap.min.css" rel="stylesheet" />
         <meta name="theme-color" content="#712cf9" />
-        <link href="../capacitaciones/public/assets/carousel.css" rel="stylesheet" />
+        <link href="public/assets/carousel.css" rel="stylesheet" />
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -90,6 +90,9 @@
             }
             .bd-mode-toggle .dropdown-menu .active .bi {
                 display: block !important;
+            }
+            .texto-justificado {
+                text-align: justify;
             }
         </style>
     </head>
@@ -252,12 +255,9 @@
             <div class="container">
               <div class="carousel-caption text-start">
                 <h1>CONACENTROS.</h1>
-                <p class="opacity-75">
-                  Aqui va el texto para describir los cursos.
-                </p>
-                <img src="../capacitaciones/public/assets/images/ccl-r.png" alt="Logo" ><br><br>
+                <img src="public/assets/images/ccl-r.png" alt="Logo" ><br><br>
                 <p>
-                  <a href="{{ route('login') }}" class="btn btn-lg btn-primary">Iniciar</a>
+                  <a href="{{ route('login') }}" class="btn btn-lg btn-primary">Iniciar Seccion</a>
                 </p>
               </div>
             </div>
@@ -279,12 +279,11 @@
             </svg>
             <div class="container">
               <div class="carousel-caption">
-                <h1>Another example headline.</h1>
+                <h1>Cursos y Capacitaciones.</h1>
                 <p>
-                  Some representative placeholder content for the second slide
-                  of the carousel.
+                  Conoce nuestras capacitaciones si alguna te interesa puedes iniciar succión e inscribirte al curso que deseas..
                 </p>
-                <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                <p><a class="btn btn-lg btn-primary" href="#">Consultar</a></p>
               </div>
             </div>
           </div>
@@ -342,6 +341,7 @@
       <div class="container marketing">
         <!-- Three columns of text below the carousel -->
         <div class="row">
+          <h3><center>Ponentes</center></h3>
           <div class="col-lg-4">
             <svg
               aria-label="Placeholder"
@@ -352,8 +352,8 @@
               width="140"
               xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <pattern id="imagenFondo" patternUnits="userSpaceOnUse" width="100" height="100">
-                  <image href="../capacitaciones/public/assets/images/ponentes/andres.jpg" x="0" y="0" width="100" height="100" />
+              <pattern id="imagenFondo" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                  <image href="public/assets/images/ponentes/federico.jpg" x="0" y="0" width="100%" height="100%" />
               </pattern>
             </defs>
               <title>Placeholder</title>
@@ -362,39 +362,12 @@
                 height="100%"
                 fill="url(#imagenFondo)"></rect>
             </svg>
-            <h2 class="fw-normal">Ándres Medina Guzmán</h2>
-            <p>
-              Dirrector General del Centro de Conciliación Larobal del Estado de Michoacan de Ocamapo.
-            </p>
-            <p>
-              <a class="btn btn-secondary" href="#">View details &raquo;</a>
-            </p>
-          </div>
-          <!-- /.col-lg-4 -->
-          <div class="col-lg-4">
-            <svg
-              aria-label="Placeholder"
-              class="bd-placeholder-img rounded-circle"
-              height="140"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="140"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
-            </svg>
-            <h2 class="fw-normal">Heading</h2>
-            <p>
-              Another exciting bit of representative placeholder content. This
-              time, we've moved on to the second column.
-            </p>
-            <p>
-              <a class="btn btn-secondary" href="#">View details &raquo;</a>
+            <h2 class="fw-normal">Dr. Federico Anaya Ojeda</h2>
+            <p class="texto-justificado">Semblanza: Abogado Laboralista, Administrador de Empresas, Doctor y Doctorante, es Presidente de la Firma Legal Anaya Valdepeña —fundada en 1932— y 
+              del Instituto Latinoamericano de Derecho del Trabajo y de la Seguridad Social (ILTRAS). Se desempeña como Profesor de Posgrado en la Escuela Libre de Derecho 
+              y en el Instituto de Posgrado en Derecho. Ha sido Asesor de empresas, sindicatos y cámaras industriales; actualmente funge como Abogado General de la Cámara Nacional 
+              de la Industria del Vestido (CANAIVE) y como Vicepresidente de la Cámara Nacional de la Industria Editorial Mexicana (CANIEM). Es Conferencista Internacional y autor de 
+              múltiples obras jurídicas. Asimismo, es Director General de EVA Editorial y de la Revista Laboral.
             </p>
           </div>
           <!-- /.col-lg-4 -->
@@ -408,23 +381,196 @@
               width="140"
               xmlns="http://www.w3.org/2000/svg"
             >
+            <defs>
+              <pattern id="Yadira" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                  <image href="public/assets/images/ponentes/luis.jpg" x="0" y="0" width="100%" height="100%" />
+              </pattern>
+            </defs>
               <title>Placeholder</title>
               <rect
                 width="100%"
                 height="100%"
-                fill="var(--bs-secondary-color)"
-              ></rect>
+                fill="url(#Yadira)"></rect>
             </svg>
-            <h2 class="fw-normal">Heading</h2>
-            <p>
-              And lastly this, the third column of representative placeholder
-              content.
-            </p>
-            <p>
-              <a class="btn btn-secondary" href="#">View details &raquo;</a>
+            <h2 class="fw-normal">Dr. Luis Manuel Díaz Mirón Álvarez</h2>
+            <p class="texto-justificado">Semblanza: Cuenta con Maestría en Derecho del Trabajo por la Escuela Libre de Derecho. Es Abogado por la misma institución, 
+              con Mención Honorífica, y Doctor Honoris Causa por el Claustro Nacional de Doctores Honoris Causa. Ha sido Profesor Titular de 
+              Derecho del Trabajo en la Escuela Libre de Derecho desde 1990 y Profesor de la Especialidad en Derecho Laboral en la Universidad 
+              Panamericana. Se desempeñó como Rector de la Escuela Libre de Derecho de 2014 a 2018. Actualmente es Socio Director del Bufete Díaz Mirón y Asociados, S.C., 
+              firma especializada en consultoría y defensa laboral. Ha sido reconocido por Chambers & Partners como experto en Derecho Laboral y es autor y 
+              coautor de diversas obras publicadas por Tirant Lo Blanch y Editorial Porrúa.
             </p>
           </div>
           <!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <svg
+              aria-label="Placeholder"
+              class="bd-placeholder-img rounded-circle"
+              height="140"
+              preserveAspectRatio="xMidYMid slice"
+              role="img"
+              width="140"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+            <defs>
+              <pattern id="Sandra" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                  <image href="public/assets/images/ponentes/sandra.jpg" x="0" y="0" width="100%" height="100%" />
+              </pattern>
+            </defs>
+              <title>Placeholder</title>
+              <rect
+                width="100%"
+                height="100%"
+                fill="url(#Sandra)"></rect>
+            </svg>
+            <h2 class="fw-normal">Mtra. Sandra Carrizosa Guzmán</h2>
+            <p class="texto-justificado">
+              Semblanza: Es Abogada por la UNAM. Cuenta con una Maestría en Derecho y una Especialidad en Derecho Constitucional por la misma universidad. 
+              También posee una Maestría en Políticas Públicas y Administración por la London School of Economics and Political Science. Tiene experiencia en el análisis 
+              .jurídico, la revisión legislativa y el desarrollo de políticas sociales, con énfasis en la defensa de los derechos humanos y la diplomacia internacional. 
+              Su trayectoria incluye la gestión de programas de cooperación internacional multianual de gran escala, el fortalecimiento de capacidades a nivel regional y la 
+              promoción del aprendizaje entre pares en temas clave de justicia social. Actualmente colabora en la Organización Internacional del Trabajo, donde está a cargo de la
+               implementación del proyecto FARO, enfocado en la prevención de conflictos y el acceso a la justicia con perspectiva de género.
+            </p>
+          </div>
+          <!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <svg
+              aria-label="Placeholder"
+              class="bd-placeholder-img rounded-circle"
+              height="140"
+              preserveAspectRatio="xMidYMid slice"
+              role="img"
+              width="140"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+            <defs>
+              <pattern id="Gianni" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                  <image href="public/assets/images/ponentes/gianni.jpg" x="0" y="0" width="100%" height="100%" />
+              </pattern>
+            </defs>
+              <title>Placeholder</title>
+              <rect
+                width="100%"
+                height="100%"
+                fill="url(#Gianni)"></rect>
+            </svg>
+            <h2 class="fw-normal">Dra. Gianni Rueda de León Íñigon</h2>
+            <p class="texto-justificado">
+             Semblanza: Doctorante en Política Criminal y Maestra en Derechos Humanos y Prevención del Delito, está certificada por la Organización 
+             Internacional del Trabajo como conciliadora en conflictos laborales y por el Servicio Federal de Mediación y Conciliación de los Estados 
+             Unidos en técnicas de conciliación. Durante los últimos 16 años ha ocupado diversos cargos en instituciones encargadas de la procuración de 
+             justicia en México. Fungió como Subprocuradora General de Asuntos Foráneos y como Subprocuradora General de Asesoría y Apoyo Técnico en la Procuraduría 
+             Federal de la Defensa del Trabajo. Actualmente se desempeña como Coordinadora General de Conciliación Individual del Centro Federal de Conciliación y 
+             Registro Laboral, donde tiene a su cargo la organización y ejecución del servicio de conciliación prejudicial a nivel nacional.
+            </p>
+          </div>
+          <!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <svg
+              aria-label="Placeholder"
+              class="bd-placeholder-img rounded-circle"
+              height="140"
+              preserveAspectRatio="xMidYMid slice"
+              role="img"
+              width="140"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+            <defs>
+              <pattern id="Alejandro" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                  <image href="public/assets/images/ponentes/alejandro.jpg" x="0" y="0" width="100%" height="100%" />
+              </pattern>
+            </defs>
+              <title>Placeholder</title>
+              <rect
+                width="100%"
+                height="100%"
+                fill="url(#Alejandro)"></rect>
+            </svg>
+            <h2 class="fw-normal">Lic. Alejandro Avilés Gómez</h2>
+            <p class="texto-justificado">
+             Semblanza: Es Licenciado en Derecho por la UNAM, con Especialidad en Derecho Laboral por la misma institución y 
+             en Constitución Social y Derechos Humanos Laborales por la Universidad de Castilla-La Mancha, en España. Actualmente es 
+             Maestrante en Administración Pública por la Universidad Anáhuac Norte. Ha sido profesor en la Facultad de Derecho de la UNAM y se 
+             desempeña como Apoderado Legal del Sindicato de Trabajadores de la UNAM. Forma parte del equipo jurídico de la Confederación Sindical de las 
+             Américas y ha representado a México en diversas Conferencias Internacionales del Trabajo. Es miembro de la Academia Mexicana de 
+             Derecho del Trabajo y Presidente del Colegio de Abogados Laboralistas de la Ciudad de México.
+            </p>
+          </div>
+          <!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <svg
+              aria-label="Placeholder"
+              class="bd-placeholder-img rounded-circle"
+              height="140"
+              preserveAspectRatio="xMidYMid slice"
+              role="img"
+              width="140"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+            <defs>
+              <pattern id="Maria" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                  <image href="public/assets/images/ponentes/maria.jpg" x="0" y="0" width="100%" height="100%" />
+              </pattern>
+            </defs>
+              <title>Placeholder</title>
+              <rect
+                width="100%"
+                height="100%"
+                fill="url(#Maria)"></rect>
+            </svg>
+            <h2 class="fw-normal">Dra. María de los Ángeles López Martínez</h2>
+            <p class="texto-justificado">
+             Semblanza: Licenciada en Derecho por la Facultad de Jurisprudencia de la Universidad Autónoma de Coahuila, 
+             obtuvo el Grado de Maestría en Derecho Laboral por la Facultad de Derecho y Ciencias Sociales de la UANL, así como el Certificado de 
+             Doctorado en Administración y Alta Dirección por la Facultad de Contaduría y Administración, Campus Torreón, de la misma universidad. 
+             Es Presidenta de la Academia Mexicana del Derecho del Trabajo y de la Previsión Social, siendo la primera mujer en desempeñar dicho cargo. 
+             Cuenta con un Doctorado Honoris Causa por el Centro de Estudios Avanzados de las Américas. Es miembro y delegada por Coahuila de la Asociación 
+             Iberoamericana de Derecho del Trabajo y de la Seguridad Social; Académica Número 15 de la Academia Mexicana de Derecho Procesal del Trabajo; socia 
+             fundadora y presidenta de la Asociación de Licenciadas en Derecho de Coahuila A.C.; expresidenta de la Asociación de Ejecutivos de Relaciones 
+             Industriales Coahuila Sureste A.C.; y socia fundadora tanto de la Asociación Mexicana de Consejeras Electorales Estatales A.C. como del Colegio de 
+             Abogados Laboralistas de Coahuila. Es autora de artículos jurídicos y coautora en obras de derecho burocrático y electoral.
+            </p>
+          </div>
+          <!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <svg
+              aria-label="Placeholder"
+              class="bd-placeholder-img rounded-circle"
+              height="140"
+              preserveAspectRatio="xMidYMid slice"
+              role="img"
+              width="140"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+            <defs>
+              <pattern id="Carlos" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                  <image href="public/assets/images/ponentes/carlos.jpg" x="0" y="0" width="100%" height="100%" />
+              </pattern>
+            </defs>
+              <title>Placeholder</title>
+              <rect
+                width="100%"
+                height="100%"
+                fill="url(#Carlos)"></rect>
+            </svg>
+            <h2 class="fw-normal">Dr.  Carlos Reynoso Castillo</h2>
+            <p class="texto-justificado">          
+              Semblanza: Es Licenciado en Derecho por la Universidad Autónoma Metropolitana y cuenta con un Diplomado en Derecho 
+              Comparado por la Universidad París II, en Francia, así como con un Diplomado en Derecho Comparado del Trabajo por la 
+              Universidad de Szeged, en Hungría. Realizó un curso en Políticas de Empleo en Ginebra, Suiza, además de diversos cursos en 
+              materia laboral en Turín y Bolonia, en Italia; en Toledo, España; y nuevamente en Ginebra. Es Doctor en Derecho por la Universidad 
+              Sorbona, París I, Francia. Ha ocupado diversos cargos públicos, entre ellos Director de Legislación y Consulta en la Secretaría de 
+              Comercio y Fomento Industrial; Consultor Externo de la Organización Internacional del Trabajo en México y en Suiza; Director General de 
+              Asuntos Jurídicos en la Universidad Nacional Autónoma de México; Director General de Profesiones en la SEP; y Abogado General de la Universidad 
+              Autónoma Metropolitana. Como asesor jurídico ha colaborado con diversas instituciones y empresas, incluyendo la UNAM, la UAM, el Instituto Politécnico 
+              Nacional, el Colegio Nacional de Educación Profesional Técnica, el Centro de Investigaciones y Estudios Superiores en Antropología Social, la 
+              Procuraduría Federal del Consumidor, el Centro de Investigación y de Estudios Avanzados del IPN, la Universidad de Ciencias y Artes de Chiapas, el 
+              Instituto Tecnológico de Sonora, Aspel y Grupo ONCE, entre otras. Es autor de más de cien artículos publicados en revistas especializadas en México 
+              y en el extranjero, así como de numerosos libros. Actualmente es Profesor de Derecho del Trabajo en la Universidad Autónoma Metropolitana y se 
+              desempeña como asesor especializado en materia laboral.
+            </p>
+          </div>
         </div>
         <!-- /.row -->
         <!-- START THE FEATURETTES -->
@@ -436,7 +582,20 @@
               <span class="text-body-secondary">FUNDAMENTOS DE LA CONCILIACION Y LA JUSTICIAL LABORAL.</span>
             </h2>
             <p class="lead">
-              Objetivo:......
+              Objetivo: Proporcionar a 
+              las y los participantes 
+              los fundamentos 
+              teóricos, jurídicos e 
+              históricos del nuevo 
+              sistema de justicia 
+              laboral en México, así 
+              como las bases 
+              conceptuales y 
+              metodológicas de la 
+              conciliación como 
+              mecanismo alternativo 
+              de solución de 
+              conflictos. 
             </p>
           </div>
           <div class="col-md-5">
@@ -449,15 +608,14 @@
               width="500"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
+              <image 
+                href="public/assets/images/index/Fundamentos1.jpeg" 
+                x="0" 
+                y="0" 
+                width="100%" 
                 height="100%"
-                fill="var(--bs-secondary-bg)"
-              ></rect>
-              <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
-                500x500
-              </text>
+                preserveAspectRatio="xMidYMid slice"
+              />
             </svg>
           </div>
         </div>
@@ -465,13 +623,27 @@
         <div class="row featurette">
           <div class="col-md-7 order-md-2">
             <h2 class="featurette-heading fw-normal lh-1">
-              Oh yeah, it’s that good.
-              <span class="text-body-secondary">See for yourself.</span>
+              SEMINARIO 2: 
+              COMPETENCIAS 
+              TÉCNICAS Y 
+              HABILIDADES PARA 
+              LA CONCILIACIÓN.   
             </h2>
             <p class="lead">
-              Another featurette? Of course. More placeholder content here to
-              give you an idea of how this layout would work with some actual
-              real-world content in place.
+              Objetivo: Desarrollar en 
+              las y los participantes 
+              las competencias 
+              técnicas, 
+              comunicacionales y 
+              metodológicas 
+              necesarias para la 
+              conducción efectiva de 
+              procedimientos 
+              conciliatorios, con 
+              énfasis en habilidades 
+              blandas, perspectiva de 
+              género y atención 
+              diferenciada.
             </p>
           </div>
           <div class="col-md-5 order-md-1">
@@ -484,51 +656,14 @@
               width="500"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
+              <image 
+                href="public/assets/images/index/seminario2.jpg" 
+                x="0" 
+                y="0" 
+                width="100%" 
                 height="100%"
-                fill="var(--bs-secondary-bg)"
-              ></rect>
-              <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
-                500x500
-              </text>
-            </svg>
-          </div>
-        </div>
-        <hr class="featurette-divider" />
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading fw-normal lh-1">
-              And lastly, this one.
-              <span class="text-body-secondary">Checkmate.</span>
-            </h2>
-            <p class="lead">
-              And yes, this is the last block of representative placeholder
-              content. Again, not really intended to be actually read, simply
-              here to give you a better view of what this would look like with
-              some actual content. Your content.
-            </p>
-          </div>
-          <div class="col-md-5">
-            <svg
-              aria-label="Placeholder: 500x500"
-              class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-              height="500"
-              preserveAspectRatio="xMidYMid slice"
-              role="img"
-              width="500"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Placeholder</title>
-              <rect
-                width="100%"
-                height="100%"
-                fill="var(--bs-secondary-bg)"
-              ></rect>
-              <text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">
-                500x500
-              </text>
+                preserveAspectRatio="xMidYMid slice"
+              />
             </svg>
           </div>
         </div>
@@ -546,7 +681,7 @@
       </footer>
     </main>
     <script
-      src="../capacitaciones/public/assets/dist/js/bootstrap.bundle.min.js"
+      src="public/assets/dist/js/bootstrap.bundle.min.js"
       class="astro-vvvwv3sm"
     ></script>
   </body>
