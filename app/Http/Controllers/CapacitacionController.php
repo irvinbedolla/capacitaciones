@@ -23,8 +23,8 @@ class CapacitacionController extends Controller
     public function index()
     {
         //Paginar las personas
-        $capacitaciones = Capacitacion::all();
-        return view('capacitaciones.index', compact('capacitaciones'));
+        //$capacitaciones = Capacitacion::all();
+        return view('capacitaciones.index');
     }
 
     public function create()
