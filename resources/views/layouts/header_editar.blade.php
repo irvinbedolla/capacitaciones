@@ -1,6 +1,6 @@
 <form class="form-inline mr-auto" action="#">
     <ul class="navbar-nav mr-3">
-        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="bi bi-border-width"></i></a></li>
+        <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg">Ménu</a></li>
     </ul>
 </form>
 <ul class="navbar-nav navbar-right">

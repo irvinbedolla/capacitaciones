@@ -46,10 +46,22 @@
     @auth
         @role('Capacitacion Usuario')
             <a class="nav-link" href="{{ route('mis_capacitaciones') }}">
-                <i class="bi bi-backpack4-fill"></i><span class="text-dark">Mis capacitaciones</span>
+                <i class="bi bi-backpack4-fill"></i><span class="text-dark">Perfil</span>
+            </a>
+            <a class="nav-link" href="{{ route('mis_capacitaciones') }}">
+                <i class="bi bi-backpack4-fill"></i><span class="text-dark">Seminarios</span>
             </a>
             <a class="nav-link" href="# }}">
-                <i class="bi bi-graph-down"></i><span class="text-dark">Mi Expediente</span>
+                <i class="bi bi-graph-down"></i><span class="text-dark">Cursos</span>
+            </a>
+            <a class="nav-link" href="# }}">
+                <i class="bi bi-backpack4-fill"></i><span class="text-dark">Evaluaciones</span>
+            </a>
+            <a class="nav-link" href="# }}">
+                <i class="bi bi-graph-down"></i><span class="text-dark">Expediente</span>
+            </a>
+            <a class="nav-link" href="# }}">
+                <i class="bi bi-backpack4-fill"></i><span class="text-dark">Buzón</span>
             </a>
         @endrole
     @endauth
