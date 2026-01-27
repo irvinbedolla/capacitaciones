@@ -123,7 +123,7 @@
         <div class="main-content">
             <section class="section">
                 <div class="section-header">
-                    <h3 class="page__heading">Sistema de Capacitaciónes</h3>
+                    <h3 class="page__heading">Catálogo Nacional de Capacitaciones</h3>
                 </div>
                 <div class="section-body">
                     <div class="row">
