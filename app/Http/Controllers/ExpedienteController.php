@@ -55,26 +55,51 @@ class ExpedienteController extends Controller
     {
         $id = auth()->user()->id;
         $data = $request->all();
-        $data_doc = [];
-
-        
+        //dd($data);
+        $data_doc = []; 
         
         $data['id_usuario'] = $id;
+
+        $estatus = 'Pendiente';
+        $data['estatus'] = $estatus;
+        $data['created_at'] = now() -> format('Y-m-d H:i:s');
+        $data['updated_at'] = now() -> format('Y-m-d H:i:s');
+        //dd($data);
         
         //Validar que ya existe registro
         $persona = Persona::where(['id_usuario' => $id])->first();
-
+        //dd($persona);
         //Si no existe se va registro
         if($persona == null){
             Persona::create($data);
-            return redirect()->route('expedientes')->with('success', 'Datos actualizados correctamente.'); 
         }
         //Si ya existe se va actualizar
         else{
             $capacitacion = Persona::where('id_usuario', $id)->first();
             $capacitacion->update($data);
-            return redirect()->route('expedientes')->with('success', 'Datos actualizados correctamente.'); 
+           
         }
+        $data_insert=array(
+                'id_usuario'            => $data["id_usuario"],
+                'nombre'                => $data["nombre"],
+                'email'                 => $data["email"],
+                'cargo'                 => $data["cargo"],
+                'area_adcripcion'       => $data["area_adcripcion"],
+                'telefono'              => $data["telefono"],
+                'estudio_maximo'        => $data["estudio_maximo"],
+                'tilulo_universitario'  => $data["tilulo_universitario"],
+                'especialidades'        => $data["especialidades"],
+                'diplomados'            => $data["diplomados"],
+                'seminarios'            => $data["seminario"] ?? null,
+                'cursos'                => $data["cursos"] ?? null,
+                'acciones_desarrollo'   => $data["acciones_desarrollo"],
+                'estatus'               => $data["estatus"],
+                'observaciones'         => $data["observaciones"],
+                'created_at'            => $data["created_at"] ?? null,
+                'updated_at'            => $data["updated_at"]            
+                );
+        Persona::create($data_insert);
+        return redirect()->route('expedientes')->with('success', 'Datos actualizados correctamente.'); 
     }
 
     public function personas_documentos($id){
