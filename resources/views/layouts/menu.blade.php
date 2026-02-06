@@ -5,6 +5,11 @@
             <a class="nav-link" href="{{ route('usuarios') }}">
                 <i class="bi bi-people-fill"></i><span class="text-dark" onclick="usuarios()">Usuarios</span>
             </a>
+
+            <a class="nav-link" href="{{ route('generarCursos') }}">
+                <i class="bi bi-people-fill"></i><span class="text-dark" onclick="usuarios()">Crear curso</span>
+            </a>
+
             <a class="nav-link" href="{{ route('roles') }}">
                 <i class="bi bi-person-lines-fill"></i><span class="text-dark" onclick="roles()">Roles</span>
             </a>
