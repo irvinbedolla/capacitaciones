@@ -131,16 +131,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/cambio_contraseña/index',  [HomeController::class, 'password_cambiar'])->name('password_cambiar');
         Route::post('/notificaciones/editar',   [HomeController::class, 'contraseña_update'])->name('contraseña_update'); 
 
-        Route::get('/cursos/index',  [CursosController::class, 'index'])->name('generarCursos');
-        Route::get('/seminario/crear',  [SeminarioController::class, 'crear'])->name('nuevoSeminario');
-        Route::post('/seminario/guardar',   [SeminarioController::class, 'guardar'])->name('seminarios.guardar');
-
     //Fin de cambiar las contraseña
     Route::name('user-management.')->group(function () {
         Route::resource('/user-management/users', UserManagementController::class);
         Route::resource('/user-management/roles', RoleManagementController::class);
         Route::resource('/user-management/permissions', PermissionManagementController::class);
     });
+
+    //Seminarios
+        Route::get('/seminario/index',                  [SeminarioController::class, 'index'])->name('generarCursos');
+        Route::get('/seminario/crear',                  [SeminarioController::class, 'crear'])->name('nuevoSeminario');
+        Route::post('/seminario/guardar',               [SeminarioController::class, 'guardar'])->name('seminarios.guardar');
+        Route::delete('/seminario/eliminar/{id}',       [SeminarioController::class, 'eliminar'])->name('eliminarSeminario');
+        Route::get('/seminario/editar/{id}',            [SeminarioController::class, 'editar'])->name('editarSeminario');
+        Route::patch('/seminario/actualizar/{id}',    [SeminarioController::class, 'actualizar'])->name('seminarios.actualizar');
+    //Fin de seminarios
 
 });
 
