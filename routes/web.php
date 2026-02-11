@@ -17,6 +17,7 @@ use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CorreosController;
+use App\Http\Controllers\PonenteController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -123,7 +124,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/expedientes/doc',                         [ExpedienteController::class, 'store_documento'])->name('subir_doc');
         Route::delete('/expedientes/destroy/{id}',              [ExpedienteController::class, 'destroy'])->name('expedientes.delete');
     //Fin de Expedientes
-    
+        Route::get('/ponentes/index',                           [PonenteController::class, 'index'])->name('ponentes.index');
+        Route::get('/ponentes/index',                           [PonenteController::class, 'index'])->name('ponentes');
+        Route::get('/ponentes/edit/{id}',                       [PonenteController::class, 'edit'])->name('ponentes.edit');
+        Route::post('/ponentes/store',                          [PonenteController::class, 'store'])->name('ponentes.store');
+        Route::get('/ponentes/create',                          [PonenteController::class, 'create'])->name('ponentes.create');
+        Route::get('/ponentes/images',                          [PonenteController::class, 'store_image'])->name('ponentes.guardar_foto');
+        Route::delete('/ponentes/destroy/{id}',                 [PonenteController::class, 'destroy'])->name('ponentes.delete');
+        Route::patch('/ponentes/update/{post}',                 [PonenteController::class, 'update'])->name('ponentes.update');
+
+
+
+
     //Cambiar las contraseña
         Route::get('/cambio_contraseña/index',  [HomeController::class, 'password_cambiar'])->name('password_cambiar');
         Route::post('/notificaciones/editar',   [HomeController::class, 'contraseña_update'])->name('contraseña_update'); 

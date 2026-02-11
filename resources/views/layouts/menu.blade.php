@@ -17,6 +17,9 @@
             <a class="nav-link" href="{{ route('expedientes') }}">
                 <i class="bi bi-graph-down"></i><span class="text-dark" onclick="expedientes()">Expediente</span>
             </a>
+            <a class="nav-link" href="{{ route('ponentes') }}">
+                <i class="bi bi-graph-down"></i><span class="text-dark" onclick="Ponentes()">Ponentes</span>
+            </a>
         @endrole
     @endauth
     @auth
