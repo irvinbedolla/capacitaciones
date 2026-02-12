@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_editar')
 
 @section('content')
     <section class="section">
@@ -13,52 +13,63 @@
                             <h3 class="text-center">Registrar ponentes</h3>                    
 
                             <!--Se realiza el envío de datos con formulario de Laravel Collective-->
-                            <form class='needs-validation novalidate' id='form_roles' method="POST" action="{{ route('ponentes.store') }}" enctype='multipart/form-data'>
+                             <form class='needs-validation novalidate' id='form_roles' method='POST' action="{{route('expedientes.store')}}" enctype='multipart/form-data'>
                                 @csrf
                                 <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        *Los campos con (*) son obligatorios.
+                                    </div>
                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                         <div class="form-group">
-                                            <label for="nombre" class ="label-alineado">Nombre Completo</label>
-                                                <input type="text" class="input-classic" name="nombre"  required>
-                                                <div class="invalid-feedback">
-                                                    El nombre es obligatorio.
-                                                </div>
+                                            <label for="nombre">*Nombre Ponente</label>
+                                            <input type="text" name="nombre" class="form-control" > 
                                         </div>
                                     </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="semblanza">*Semblanza</label>
+                                            <input type="text" name="semblanza" class="form-control" > 
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="nombre_foto">*Nombre para fotografia</label>
+                                            <input type="text" name="nombre_foto" class="form-control" > 
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="fotografia">*Selecciona fotografia:</label>
+                                            <input type="file" name="fotografia" accept="image/*" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="semblanza">*Ponente</label>
+                                        
+                                            <select class="form-control" name="id_usuario" class="form-control" required>
+                                                <option value="">Selecciona un ponente</option>
+                                                @if ($ponentes->count() > 0)
+                                                    @foreach ($ponentes as $ponente)
+                                                    
+                                                    <option value= {{ $ponente->id }}> {{ $ponente->name }}</option>
+                                                    @endforeach
+                                                    
+                                                @endif
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                El ponente es obligatorio
+                                            </div>
 
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="semblanza" class ="label-alineado">Semblanza</label>
-                                            <input type="text" class="input-classic" name="semblanza" required>
-                                            <div class="invalid-feedback">
-                                                La semblanza es obligatoria.
-                                            </div>
                                         </div>
                                     </div>
-                                    <!-- public/assets/images/ponentes/-->
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="nombre_foto" class ="label-alineado">Nombre de fotografia</label>
-                                            <input type="text" class="input-classic" name="nombre_foto" required>
-                                            <div class="invalid-feedback">
-                                                La semblanza es obligatoria.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="fotografia">*selecciona fotografia:</label>
-                                            <input type="file" name="fotografia" id="fotografia" accept="image/*" required>
-                                        </div>
-                                    </div>
-                                    <div class="row">
+                                </div>
+                                 <div class="row">
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <button type="submit" class="btn btn-primary">Guardar</button>
                                     </div>
                                     
-                                </div>
-
                                 </div>
                             </form>
                            

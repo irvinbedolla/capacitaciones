@@ -68,6 +68,16 @@
             </a>
         @endrole
     @endauth
+    @auth
+        @role('Ponente')
+            <a class="nav-link" href="">
+                <i class="bi bi-graph-down"></i><span class="text-dark" onclick="ponente_usuario()">Mis datos</span>
+            </a>
+            <a class="nav-link" href="{{ route('ponentes') }}">
+                <i class="bi bi-graph-down"></i><span class="text-dark" onclick="Ponentes()">Ponentes</span>
+            </a>
+        @endrole
+    @endauth
     
 </li>
 

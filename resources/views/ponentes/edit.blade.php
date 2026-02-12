@@ -1,4 +1,4 @@
-¿@extends('layouts.app_editar')
+@extends('layouts.app_editar')
 
 @section('content')
     <section class="section">
@@ -69,10 +69,13 @@
                                     <div class="invalid-feedback">
                                         La fotografia es obligatoria.
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <button type="submit" class="btn btn-primary" style="background-color: #6A0F49">Guardar</button>
-                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                        </div>
                                     
+                                    </div>
                                 </div>
                             </form>     
                         </div>
