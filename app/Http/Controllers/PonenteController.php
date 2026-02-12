@@ -16,30 +16,22 @@ class PonenteController extends Controller{
      public function index()
     {
         
+        
         $id      = auth()->user()->id;
         $usuario = User::find($id);
         $rol     = $usuario->getRoleNames()->first();
         $persona = Persona::where('id_usuario', $id)->get();
         $ponentes=[];
-
-        $persona = "Existe";
-        if($rol == "Super Usuario" || $rol == 'Capacitacion Admin'){
-            $ponentes       = Ponente::all();
-
-            if(!$persona){
-                $persona = "no existe";
-            }
+        $user = auth()->user();
+        $userRole = $user->roles->pluck('name')->all();
+        //dd($userRole);
+        $ponentes = Ponente::all();
+        if($userRole[0] == 'Super Usuario'){
+            
+            return view('ponentes.index', compact('persona','ponentes','rol'));
         }
-
-        else{
-            //Si la persona no existe va mandar una bandera 
-            if(!$persona){
-                $persona = "no existe";
-            }
-        }
-
-    
-        return view('ponentes.index', compact('persona','ponentes','rol'));
+        $fotografias = Fotografia::all();
+        return view('ponentes.index_normal', compact('ponentes','fotografias'));
     }
 
     public function edit($id)
@@ -51,14 +43,27 @@ class PonenteController extends Controller{
     }
     public function create()
     {
-        return view('ponentes.crear');
+        
+        $ponentes_lista = User::whereHas('roles', function ($query) {
+                    $query->where('name', 'Ponente');
+                })
+                ->select('users.id', 'users.name')->get();
+        
+        $ponentes_registrados= Ponente::pluck('id_usuario');
+
+        $ponentes = $ponentes_lista->whereNotIn('id', $ponentes_registrados);
+        return view('ponentes.crear', compact('ponentes'));
+        
+        
+        
     }
     
     public function store(Request $request)
     {
         $id = auth()->user()->id;
+        
         $data = $request->all();
-        $data['id_usuario'] = $id;
+        
         //Validar documentacion
         /*request()->validate([
             'nombre'      => 'required',
@@ -80,7 +85,8 @@ class PonenteController extends Controller{
         );
         
         Ponente::create($data_ponente);
-        $id_ponente= Ponente::where(['id_usuario' => $id])->first();
+        $id_ponente= Ponente::where(['id_usuario' => $data['id_usuario']])->first();
+        
         
         $data_fotografia=array(
                 'id_ponente'            => $id_ponente["id"],
