@@ -52,6 +52,7 @@ class PonenteController extends Controller{
         $ponentes_registrados= Ponente::pluck('id_usuario');
 
         $ponentes = $ponentes_lista->whereNotIn('id', $ponentes_registrados);
+
         return view('ponentes.crear', compact('ponentes'));
         
         

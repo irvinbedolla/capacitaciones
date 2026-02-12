@@ -58,7 +58,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label>Foto actual:</label>
-                                            <img src="{{ asset('images_ponente/' . ($ponente->fotografia ?? 'default.jpg')) }}" 
+                                            <img src="{{ asset('storage/app/ponentes/' . ($ponente->nombre . ".jpg" ?? 'default.jpg')) }}" 
                                                     alt="Foto de {{ $ponente->nombre }}" 
                                                     class="rounded-circle" 
                                                     style="width: 60px; height: 60px; object-fit: cover; border: 2px solid #4A001F;">

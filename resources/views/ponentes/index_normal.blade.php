@@ -1,4 +1,4 @@
-@extends('layouts.app_editar')
+@extends('layouts.app')
 @php
     $fechaActual = date('Y-m-d');
     $id = auth()->user()->id;
@@ -23,9 +23,10 @@
                                 <div class="card h-100 shadow-sm" style="border-top: 5px solid #4A001F;">
                                     <div class="text-center pt-4">
                                         {{-- Nota: Usamos 'images_ponente' que es el nombre de tu link según tu captura anterior --}}
-                                        <img src="{{ asset('images_ponente/' . ($ponente->fotografia ?? 'default.jpg')) }}" 
-                                            alt="Foto de {{ $ponente->nombre }}" 
-                                            class="rounded-circle img-thumbnail" 
+                                        <img src="{{ asset('storage/app/ponentes/' . ($ponente->nombre . ".jpg" ?? 'default.jpg')) }}" 
+                                                    alt="Foto de {{ $ponente->nombre }}" 
+                                                    class="rounded-circle" 
+                                                    
                                             style="width: 150px; height: 150px; object-fit: cover; border: 2px solid #4A001F;">
                                     </div>
                                     <div class="card-body text-center">

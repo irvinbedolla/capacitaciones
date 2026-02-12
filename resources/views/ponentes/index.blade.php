@@ -1,4 +1,4 @@
-@extends('layouts.app_editar')
+@extends('layouts.app')
 @php
     $fechaActual = date('Y-m-d');
     $id = auth()->user()->id;
@@ -26,6 +26,7 @@
                                         <th style="color: #fff;">Semblanza</th>
                                         <th style="color: #fff;"></th>
                                         <th style="color: #fff;">Acciones</th>
+                                        <th style="color: #fff;"></th>
                                     </thead>
                                     <tbody>
                                         @foreach($ponentes as $ponente)
@@ -34,7 +35,7 @@
                                                 <td>{{$ponente->nombre}}</td>
                                                 <td>{{$ponente->semblanza}}</td>
                                                 <td>
-                                                    <img src="{{ asset('images_ponente/' . ($ponente->fotografia ?? 'default.jpg')) }}" 
+                                                    <img src="{{ asset('storage/app/ponentes/' . ($ponente->nombre . ".jpg" ?? 'default.jpg')) }}" 
                                                     alt="Foto de {{ $ponente->nombre }}" 
                                                     class="rounded-circle" 
                                                     style="width: 60px; height: 60px; object-fit: cover; border: 2px solid #4A001F;">

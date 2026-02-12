@@ -1,4 +1,4 @@
-@extends('layouts.app_editar')
+@extends('layouts.app')
 
 @section('content')
     <section class="section">
@@ -13,7 +13,7 @@
                             <h3 class="text-center">Registrar ponentes</h3>                    
 
                             <!--Se realiza el envío de datos con formulario de Laravel Collective-->
-                             <form class='needs-validation novalidate' id='form_roles' method='POST' action="{{route('expedientes.store')}}" enctype='multipart/form-data'>
+                             <form class='needs-validation novalidate' id='form_roles' method='POST' action="{{route('ponentes.store')}}" enctype='multipart/form-data'>
                                 @csrf
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -67,7 +67,7 @@
                                  <div class="row">
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type = 'sumbit' class ='btn btn-primary'> Guardar</button>
                                     </div>
                                     
                                 </div>
