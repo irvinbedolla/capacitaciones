@@ -144,7 +144,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/seminario/guardar',               [SeminarioController::class, 'guardar'])->name('seminarios.guardar');
         Route::delete('/seminario/eliminar/{id}',       [SeminarioController::class, 'eliminar'])->name('eliminarSeminario');
         Route::get('/seminario/editar/{id}',            [SeminarioController::class, 'editar'])->name('editarSeminario');
-        Route::patch('/seminario/actualizar/{id}',    [SeminarioController::class, 'actualizar'])->name('seminarios.actualizar');
+        Route::patch('/seminario/actualizar/{id}',      [SeminarioController::class, 'actualizar'])->name('seminarios.actualizar');
+        Route::get('/seminario/agregar/{id}',           [SeminarioController::class, 'agregar'])->name('agregarModulo');
+        Route::patch('/seminario/_agregar/{id}',        [SeminarioController::class, '_agregar'])->name('seminarios._agregar');
+
     //Fin de seminarios
 
 });

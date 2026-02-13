@@ -85,4 +85,17 @@ class SeminarioController extends Controller
         //return view('usuarios.index',compact('usuarios'));
         return redirect()->route('generarCursos')->with('success', 'Seminario eliminado exitosamente.');
     }
+
+    public function agregar($id)
+    {
+        #dd($id)
+        $seminario = Seminario::find($id);
+        return view('seminario.agregar', compact('seminario'));
+    }
+
+    public function _agregar(Request $request, $id)
+    {
+        
+    }
+
 }

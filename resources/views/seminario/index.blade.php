@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             @can('crear-usuario')
-                                <a class="btn btn-warning" href="{{ route('nuevoSeminario') }}" onclick=crear_seminario();> Nuevo seminario</a>
+                                <a class="btn btn-warning mb-1" href="{{ route('nuevoSeminario') }}" onclick=crear_seminario();> Nuevo seminario</a>
                             @endcan    
 
                             @can('ver-curso')
@@ -23,6 +23,7 @@
                                             <th style="color: #fff;">Fecha inicial</th>
                                             <th style="color: #fff;">Fecha final</th>
                                             <th style="color: #fff;">Acciones</th>
+                                            <th style="color: #fff;">Módulos</th>
                                         </thead>
                                         <tbody>
                                             @foreach($seminarios as $seminario)
@@ -33,7 +34,7 @@
                                                     <td>{{$seminario->fecha_final}}</td>
                                                     <td>
                                                         @can('editar-curso')
-                                                            <a class="btn btn-info" href="{{ route('editarSeminario', $seminario->id) }}" onclick=editar_seminario();>Editar</a>
+                                                            <a class="btn btn-info mb-1" href="{{ route('editarSeminario', $seminario->id) }}" onclick=editar_seminario();>Editar</a>
                                                         @endcan
                                                         @can('borrar-curso')
                                                             <form method="POST" action="{{ route('eliminarSeminario', $seminario->id) }}">
@@ -42,6 +43,9 @@
                                                                 <button class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar este seminario?')"; type="submit">Eliminar</button>
                                                             </form>
                                                         @endcan
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-info mb-1" href="{{ route('agregarModulo', $seminario->id) }}" onclick=agregar_modulo();>Agregar Módulo</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
