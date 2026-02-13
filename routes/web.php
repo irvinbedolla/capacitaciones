@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\Apps\PermissionManagementController;
 use App\Http\Controllers\Apps\RoleManagementController;
 use App\Http\Controllers\Apps\UserManagementController;
@@ -11,6 +12,8 @@ use App\Http\Controllers\PDFController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\CursosController;
+use App\Http\Controllers\SeminarioController;
 use App\Http\Controllers\CapacitacionController;
 use App\Http\Controllers\MiscapacitacionController;
 use App\Http\Controllers\ExpedienteController;
@@ -139,12 +142,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Cambiar las contraseña
         Route::get('/cambio_contraseña/index',  [HomeController::class, 'password_cambiar'])->name('password_cambiar');
         Route::post('/notificaciones/editar',   [HomeController::class, 'contraseña_update'])->name('contraseña_update'); 
+
     //Fin de cambiar las contraseña
     Route::name('user-management.')->group(function () {
         Route::resource('/user-management/users', UserManagementController::class);
         Route::resource('/user-management/roles', RoleManagementController::class);
         Route::resource('/user-management/permissions', PermissionManagementController::class);
     });
+
+    //Seminarios
+        Route::get('/seminario/index',                  [SeminarioController::class, 'index'])->name('generarCursos');
+        Route::get('/seminario/crear',                  [SeminarioController::class, 'crear'])->name('nuevoSeminario');
+        Route::post('/seminario/guardar',               [SeminarioController::class, 'guardar'])->name('seminarios.guardar');
+        Route::delete('/seminario/eliminar/{id}',       [SeminarioController::class, 'eliminar'])->name('eliminarSeminario');
+        Route::get('/seminario/editar/{id}',            [SeminarioController::class, 'editar'])->name('editarSeminario');
+        Route::patch('/seminario/actualizar/{id}',    [SeminarioController::class, 'actualizar'])->name('seminarios.actualizar');
+    //Fin de seminarios
 
 });
 
