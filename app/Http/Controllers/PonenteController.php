@@ -26,12 +26,23 @@ class PonenteController extends Controller{
         $userRole = $user->roles->pluck('name')->all();
         //dd($userRole);
         $ponentes = Ponente::all();
+        $fotografias = Fotografia::all();
+        
         if($userRole[0] == 'Super Usuario'){
             
             return view('ponentes.index', compact('persona','ponentes','rol'));
         }
-        $fotografias = Fotografia::all();
-        return view('ponentes.index_normal', compact('ponentes','fotografias'));
+        else if($userRole[0] == 'Ponente'){
+           
+            
+            $ponente = Ponente::where(['id_usuario' => $id])->first();
+            
+            return view('ponentes.index_ponente', compact('persona','ponente','fotografias'));
+        }
+        else{
+            return view('ponentes.index_normal', compact('ponentes','fotografias'));
+
+        }
     }
 
     public function edit($id)
@@ -41,6 +52,7 @@ class PonenteController extends Controller{
         $fotografia = Fotografia::where('id_ponente',$id_ponente)->first();
         return view('ponentes.edit', compact('ponente','fotografia'));
     }
+   
     public function create()
     {
         
@@ -124,23 +136,23 @@ class PonenteController extends Controller{
         $ponente = Ponente::find($id);
         $id_ponente= $ponente->id;
         $foto = Fotografia::where('id_ponente',$id_ponente)->first();
-
         $ponente->update([
             'nombre' => $input["nombre"],
             'semblanza' => $input["semblanza"] 
         ]);
+        if($request->hasFile('fotografia')){
+        $nombre_foto = $input["nombre"].".jpg";
         
-        if(isset($input["foto"])){
-            
-                $nombre_foto = $input["nombre"].".jpg";
-                $path = Storage::putFileAs(
-                    'ponentes', $request->file('fotografia'), $nombre_foto
-                );
-                $foto->update([
-                    'fotografia' => $nombre_foto 
-                ]);
-        }
+        $path = Storage::putFileAs(
+            'ponentes', $request->file('fotografia'), $nombre_foto
+        );
 
+        $foto = Fotografia::where('id_ponente', $ponente->id)->first();
+        
+        if($foto) {
+            $foto->update(['fotografia' => $nombre_foto]);
+        } 
+    }
         return redirect()->route('ponentes');
     }
  

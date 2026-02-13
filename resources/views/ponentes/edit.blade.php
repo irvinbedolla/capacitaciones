@@ -30,7 +30,7 @@
                             @endif
 
                             <!--Se realiza el envío de datos con formulario de Laravel Collective-->
-                            <form class='needs-validation novalidate' method='POST' action="{{route('ponentes.update', $ponente->id)}}" id="form_usuarios">
+                            <form class='needs-validation novalidate' method='POST' action="{{route('ponentes.update', $ponente->id)}}" id="form_usuarios" enctype="multipart/form-data">>
                                 <input type="hidden" name="_method" value="PATCH">
                                 @csrf
                                 <div class="row">
