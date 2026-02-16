@@ -55,7 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Rutas de los menus
         Route::get('/usuarios/index',           [UsuarioController::class, 'index'])->name('usuarios');
         Route::get('/roles/index',              [RolController::class, 'index'])->name('roles');
-        Route::get('/capacitaciones/index',     [CapacitacionController::class, 'index'])->name('capacitaciones');
+        Route::get('/capacitaciones/indexr',     [CapacitacionController::class, 'index'])->name('capacitaciones');
         Route::get('/miscapacitaciones/index',  [MiscapacitacionController::class, 'index'])->name('miscapacitaciones');
         Route::get('/expedientes/index',        [ExpedienteController::class, 'index'])->name('expedientes');
         Route::get('/seer/index',               [SeerController::class, 'index'])->name('seer');
@@ -88,8 +88,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Fin roles
     
     //Capacitaciones
-        Route::get('/capacitaciones/index',                         [CapacitacionController::class, 'index'])->name('capacitaciones.index');
-        Route::get('/capacitaciones/index',                         [CapacitacionController::class, 'index'])->name('capacitaciones');
+        Route::get('/capacitaciones/index1',                         [CapacitacionController::class, 'index'])->name('capacitaciones.index');
+        Route::get('/capacitaciones/index2',                         [CapacitacionController::class, 'index'])->name('capacitaciones');
         Route::get('/capacitaciones/create',                        [CapacitacionController::class, 'create'])->name('capacitaciones.create');
         Route::get('/capacitaciones/edit/{id}',                     [CapacitacionController::class, 'edit'])->name('capacitaciones.edit');
         Route::post('/capacitaciones/guardar_capacitacion',         [CapacitacionController::class, 'crear_capacitacion'])->name('crear_capacitacion');
@@ -114,7 +114,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/capacitaciones/terminar/{id}',                 [CapacitacionController::class, 'terminar'])->name('capacitaciones.terminado');
     //Fin capacitaciones    
     //Mis Capacitaciones
-        Route::get('/capacitaciones/index',                         [MiscapacitacionController::class, 'index'])->name('mis_capacitaciones');
+        Route::get('/miscapacitaciones/index',                      [MiscapacitacionController::class, 'index'])->name('mis_capacitaciones');
     //Fin mis capacitaciones
     //Expedientes
         Route::get('/expedientes/index',                        [ExpedienteController::class, 'index'])->name('expedientes.index');
