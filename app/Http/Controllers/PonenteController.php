@@ -140,18 +140,16 @@ class PonenteController extends Controller{
             'nombre' => $input["nombre"],
             'semblanza' => $input["semblanza"] 
         ]);
-        if($request->hasFile('fotografia')){
-        $nombre_foto = $input["nombre"].".jpg";
+    if($request->hasFile('fotografia')){
         
-        $path = Storage::putFileAs(
-            'ponentes', $request->file('fotografia'), $nombre_foto
-        );
+        $nombre_limpio = str_replace(' ', '_', $request->nombre);
+        $nombre_foto = $nombre_limpio . ".jpg";
+        $path = $request->file('fotografia')->storeAs('ponentes', $nombre_foto, 'public');
 
-        $foto = Fotografia::where('id_ponente', $ponente->id)->first();
-        
-        if($foto) {
-            $foto->update(['fotografia' => $nombre_foto]);
-        } 
+        Fotografia::updateOrCreate(
+            ['id_ponente' => $ponente->id],
+            ['fotografia' => $nombre_foto]
+        );
     }
         return redirect()->route('ponentes');
     }

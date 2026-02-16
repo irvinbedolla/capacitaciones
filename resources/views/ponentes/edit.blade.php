@@ -30,7 +30,7 @@
                             @endif
 
                             <!--Se realiza el envío de datos con formulario de Laravel Collective-->
-                            <form class='needs-validation novalidate' method='POST' action="{{route('ponentes.update', $ponente->id)}}" id="form_usuarios" enctype="multipart/form-data">>
+                            <form class='needs-validation novalidate' method='POST' action="{{route('ponentes.update', $ponente->id)}}" id="form_usuarios" enctype="multipart/form-data">
                                 <input type="hidden" name="_method" value="PATCH">
                                 @csrf
                                 <div class="row">
@@ -58,9 +58,9 @@
                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label>Foto actual:</label>
-                                            <img src="{{ asset('storage/app/ponentes/' . ($ponente->nombre . ".jpg" ?? 'default.jpg')) }}" 
+                                            <img src="{{ asset('storage/app/public/ponentes/' . str_replace(' ', '_', $ponente->nombre) . '.jpg') }}" 
                                                     alt="Foto de {{ $ponente->nombre }}" 
-                                                    class="rounded-circle" 
+                                                    class="rounded-circle"  
                                                     style="width: 60px; height: 60px; object-fit: cover; border: 2px solid #4A001F;">
                                             <input type="file" name="fotografia" class="form-control">
                                             <small>Deja en blanco si no deseas cambiar la foto.</small>

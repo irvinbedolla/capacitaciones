@@ -35,7 +35,7 @@
                                                 <td>{{$ponente->nombre}}</td>
                                                 <td>{{$ponente->semblanza}}</td>
                                                 <td>
-                                                    <img src="{{ asset('storage/app/ponentes/' . ($ponente->nombre . ".jpg" ?? 'default.jpg')) }}" 
+                                                    <img src="{{ asset('storage/app/public/ponentes/' . str_replace(' ', '_', $ponente->nombre) . '.jpg') }}" 
                                                     alt="Foto de {{ $ponente->nombre }}" 
                                                     class="rounded-circle" 
                                                     style="width: 60px; height: 60px; object-fit: cover; border: 2px solid #4A001F;">

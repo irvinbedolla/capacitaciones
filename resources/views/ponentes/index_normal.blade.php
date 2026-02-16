@@ -23,9 +23,9 @@
                                 <div class="card h-100 shadow-sm" style="border-top: 5px solid #4A001F;">
                                     <div class="text-center pt-4">
                                         {{-- Nota: Usamos 'images_ponente' que es el nombre de tu link según tu captura anterior --}}
-                                        <img src="{{ asset('storage/app/ponentes/' . ($ponente->nombre . ".jpg" ?? 'default.jpg')) }}" 
+                                        <img src="{{ asset('storage/app/public/ponentes/' . str_replace(' ', '_', $ponente->nombre) . '.jpg') }}" 
                                                     alt="Foto de {{ $ponente->nombre }}" 
-                                                    class="rounded-circle" 
+                                                    class="rounded-circle"  
                                                     
                                             style="width: 150px; height: 150px; object-fit: cover; border: 2px solid #4A001F;">
                                     </div>
