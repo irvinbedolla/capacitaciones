@@ -27,10 +27,103 @@
 .h5 {
     style="text-align: justify;"
 }
+
+
+/* Paleta de Colores Principal */
+            :root {
+                --primary-color: #4A001F; /* El guinda de tu tabla original */
+                --accent-color: #7A1D3A;
+                --text-muted: #6c757d;
+            }
+
+            .lms-card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border-radius: 15px !important;
+                overflow: hidden;
+            }
+
+            .lms-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+            }
+
+            /* Sidebar del Ponente */
+            .lms-speaker-sidebar {
+                background: linear-gradient(180deg, var(--primary-color) 0%, var(--accent-color) 100%);
+                color: white;
+            }
+
+            .speaker-badge {
+                font-size: 10px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                background: rgba(255,255,255,0.2);
+                display: inline-block;
+                padding: 2px 12px;
+                border-radius: 20px;
+                margin-bottom: 15px;
+            }
+
+            .avatar-container img {
+                width: 120px;
+                height: 120px;
+                border: 4px solid rgba(255,255,255,0.3);
+                object-fit: cover;
+            }
+
+            .speaker-name { font-weight: 700; margin-bottom: 0; }
+            .speaker-title { color: rgba(255,255,255,0.7) !important; font-size: 0.9rem; }
+
+            /* Botones de Temario */
+            .lms-topic-btn {
+                text-align: left;
+                background: #f8f9fa;
+                border: 1px solid #e9ecef;
+                padding: 12px 15px;
+                font-weight: 600;
+                color: #444;
+                transition: all 0.2s;
+            }
+
+            .lms-topic-btn:hover, .lms-topic-btn:not(.collapsed) {
+                background: #fff;
+                border-left: 4px solid var(--primary-color);
+                color: var(--primary-color);
+            }
+
+            .topic-number {
+                background: var(--primary-color);
+                color: white;
+                width: 25px;
+                height: 25px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 5px;
+                font-size: 12px;
+                margin-right: 10px;
+            }
+
+            /* Botones de acción personalizados */
+            .btn-custom {
+                background-color: var(--primary-color);
+                color: white;
+                border-radius: 8px;
+                padding: 8px 20px;
+            }
+
+            .btn-outline-custom {
+                border: 2px solid var(--primary-color);
+                color: var(--primary-color);
+                font-weight: 700;
+                border-radius: 8px;
+            }
+
+
 </style>
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading">Formación y Actualización</h3>
+            <h3 class="page__heading"></h3>
         </div>
         <div class="section-body">
             <div class="row">
@@ -49,115 +142,114 @@
                             @endif
 
                             
-                            <h4 class="mb-3">
-                            SEMINARIO 1: <br>
-                            FUNDAMENTOS DE LA CONCILIACIÓN Y LA JUSTICIA LABORAL.</h4>
+                            <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <div class="card lms-card shadow-sm border-0">
+                                            <div class="row no-gutters">
+                                                <div class="col-md-4 lms-speaker-sidebar text-center p-4">
+                                                    <div class="speaker-badge">Ponente Magistral</div>
+                                                    <div class="avatar-container mb-3">
+                                                        <img src="../public/assets/images/ponentes/Carmelo.jpeg" alt="Ponente" class="img-fluid rounded-circle shadow">
+                                                    </div>
+                                                    <h4 class="speaker-name">Dr. Sergio Carmelo Dominguez</h4>
+                                                    <p class="speaker-title text-muted">Director FDCS</p>
+                                                    <hr class="speaker-divider">
+                                                    <div class="course-meta">
+                                                        <small class="text-white-50 d-block">Periodo de capacitación:</small>
+                                                        <span class="badge badge-light-outline">03-01-2025 al 03-02-2025</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-8 p-4">
+                                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                                        <div>
+                                                            <span class="badge badge-soft-primary mb-2">Módulo 1</span>
+                                                            <h2 class="course-main-title">Historia y evolución del derecho laboral mexicano</h2>
+                                                        </div>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-light btn-sm rounded-circle" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                <a class="dropdown-item" href="{{ route('capacitaciones.modulos', 1)}}">Configurar Módulos</a>
+                                                                <form method="POST" action="{{ route('capacitaciones.destroy', 1) }}">
+                                                                    @csrf @method('DELETE')
+                                                                    <button class="dropdown-item text-danger" type="submit">Eliminar Curso</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <p class="text-muted mb-4">Explora los ejes temáticos y materiales de este módulo educativo diseñado para la excelencia institucional.</p>
+
+                                                    <div class="accordion" id="accordionCourse1">
+                                                        <div class="lms-topic-item mb-2">
+                                                            <button class="btn btn-block lms-topic-btn collapsed" data-toggle="collapse" data-target="#topic11">
+                                                                <span class="topic-number">I</span> Antecedentes constitucionales del derecho laboral
+                                                                <i class="fas fa-chevron-down float-right mt-1"></i>
+                                                            </button>
+                                                            <div id="topic11" class="collapse" data-parent="#accordionCourse1">
+                                                                <div class="p-3 bg-light border-top rounded-bottom">
+                                                                    Aquí van los recursos, videos o lecturas del tema I.
+                                                                </div>
+                                                                <div class="p-3 bg-light border-top rounded-bottom">
+                                                                    Aquí van los recursos, videos o lecturas del tema I.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="lms-topic-item mb-2">
+                                                            <button class="btn btn-block lms-topic-btn collapsed" data-toggle="collapse" data-target="#topic21">
+                                                                <span class="topic-number">II</span> Las reformas laborales en México: contexto y alcances
+                                                                <i class="fas fa-chevron-down float-right mt-1"></i>
+                                                            </button>
+                                                            <div id="topic21" class="collapse" data-parent="#accordionCourse1">
+                                                                <div class="p-3 bg-light border-top rounded-bottom">
+                                                                    Contenido detallado del tema II.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="lms-topic-item mb-2">
+                                                            <button class="btn btn-block lms-topic-btn collapsed" data-toggle="collapse" data-target="#topic11">
+                                                                <span class="topic-number">III</span> De las Juntas de Conciliación y Arbitraje al nuevo modelo
+                                                                <i class="fas fa-chevron-down float-right mt-1"></i>
+                                                            </button>
+                                                            <div id="topic11" class="collapse" data-parent="#accordionCourse1">
+                                                                <div class="p-3 bg-light border-top rounded-bottom">
+                                                                    Aquí van los recursos, videos o lecturas del tema III.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="lms-topic-item mb-2">
+                                                            <button class="btn btn-block lms-topic-btn collapsed" data-toggle="collapse" data-target="#topic11">
+                                                                <span class="topic-number">IV</span> Comparativo entre el sistema anterior y el actual
+                                                                <i class="fas fa-chevron-down float-right mt-1"></i>
+                                                            </button>
+                                                            <div id="topic11" class="collapse" data-parent="#accordionCourse1">
+                                                                <div class="p-3 bg-light border-top rounded-bottom">
+                                                                    Aquí van los recursos, videos o lecturas del tema IV.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
 
-
-
-                            <div class="tab d-flex gap-2"> 
-                                <a class="btn btn-info text-nowrap" onclick="openCity(event, 'detalles')">Objetivo</a>
-                                <a class="btn btn-info text-nowrap" onclick="openCity(event, 'solicitante')">Introducción</a>
-                                <a class="btn btn-info text-nowrap" onclick="openCity(event, 'documentos')">Desarrollo</a>
-                                <a class="btn btn-info text-nowrap" onclick="openCity(event, 'observaciones')">Conclusiones</a>
-                            </div>
-
-                                <div id="detalles" class="tabcontent">
-                                    <div id="tabla_detalles" class="row"><br><br>
-                                        <br><br>
-                                        <h5>Proporcionar a las y los participantes los fundamentos teóricos, jurídicos e históricos del nuevo sistema de justicia 
-                                        laboral en México, así como las bases conceptuales y metodológicas de la conciliación como mecanismo alternativo de solución de conflictos.</h5>
-                                    </div>
-                                </div>
-
-                                <div id="solicitante" class="tabcontent">
-                                    <div id="tabla_detalles" class="row"><br><br>
-                                        <img 
-                                            src="../public/assets/images/modulos/1.jpg" 
-                                            class="img-fluid rounded mb-3 shadow-sm" 
-                                            alt="Imagen representativa del curso de Conciliación Laboral"
-                                            style="max-height: 250px; width: auto;"
-                                        >
-                                        <h5 style="text-align: justify;">
-                                            S1M1U1 Historia y evolución del derecho laboral mexicano<br>
-                                            I.	Antecedentes constitucionales del derecho laboral<br>
-                                            II.	Las reformas laborales en México: contexto y alcances<br>
-                                            III.	De las Juntas de Conciliación y Arbitraje al nuevo modelo<br>
-                                            IV.	Comparativo entre el sistema anterior y el actual
-                                            <br><br>
-                                            S1M1U2 Marco jurídico del nuevo sistema de justicia laboral<br>
-                                            I.	Reforma constitucional de 2017 (artículos 107 y 123)<br>
-                                            II.	Reforma a la Ley Federal del Trabajo (2019)<br>
-                                            III.	Normatividad estatal en materia de conciliación<br>
-                                            IV.	Tratados internacionales aplicables (Convenios OIT)
-                                             <br><br>
-                                            S1M1U3 Organización y funcionamiento de los Centros de Conciliación Laboral<br>
-                                            I.	Naturaleza jurídica y autonomía de los CCL<br>
-                                            II.	Estructura organizacional tipo<br>
-                                            III.	Atribuciones y competencias<br>
-                                            IV.	Coordinación con tribunales laborales y otras instancias
-
-                                        </h5>
-                                    </div>
-                                </div>
-
-                                <div id="documentos" class="tabcontent">
-                                    <div id="tabla_detalles" class="row"><br><br>
-                                        <img 
-                                            src="../public/assets/images/modulos/2.jpg" 
-                                            class="img-fluid rounded mb-3 shadow-sm" 
-                                            alt="Imagen representativa del curso de Conciliación Laboral"
-                                            style="max-height: 250px; width: auto;"
-                                        >
-                                        <h5>
-                                            S1M2U1 Métodos alternos de solución de controversias (MASC)<br>
-                                            I.	Conceptos fundamentales: negociación, mediación, conciliación y arbitraje<br>
-                                            II.	Diferencias y similitudes entre MASC<br>
-                                            III.	Ventajas de los MASC frente al litigio tradicional<br>
-                                            IV.	Experiencias internacionales en MASC laborales
-                                            <br><br>
-                                            S1M2U2 La conciliación laboral: concepto, principios y características<br>
-                                            I.	Definición y naturaleza jurídica de la conciliación laboral<br>
-                                            II.	Principios rectores: imparcialidad, equidad, celeridad, gratuidad<br>
-                                            III.	Características del procedimiento conciliatorio<br>
-                                            IV.	Diferencias entre conciliación prejudicial y judicial
-                                            <br><br>
-                                            S1M2U3 El conflicto laboral: teoría y tipología<br>
-                                            I.	Teoría general del conflicto<br>
-                                            II.	Tipos de conflictos laborales: individuales y colectivos<br>
-                                            III.	Causas y dinámicas del conflicto en el ámbito laboral<br>
-                                            IV.	Análisis de casos típicos en conciliación<br>
-                                        </h5>
-                                    </div>
-                                </div>
-
-                                <div id="observaciones" class="tabcontent">
-                                    <div id="tabla_detalles" class="row"><br><br>
-                                        <img 
-                                            src="../public/assets/images/modulos/3.jpg" 
-                                            class="img-fluid rounded mb-3 shadow-sm" 
-                                            alt="Imagen representativa del curso de Conciliación Laboral"
-                                            style="max-height: 250px; width: auto;"
-                                        >
-                                        <h5>S1M3U1 Etapas del procedimiento conciliatorio<br>
-                                            I.	Fase prejudicial: solicitud y admisión<br>
-                                            II.	Citación a las partes<br>
-                                            III.	Audiencia de conciliación: desarrollo y estructura<br>
-                                            IV.	Conclusión del procedimiento: convenio, incomparecencia, sin acuerdo
-                                            <br><br>
-                                            S1M3U2 Análisis estratégico de jurisprudencia sobre la etapa prejudicial<br>
-                                            I.	Criterios de la SCJN sobre conciliación obligatoria<br>
-                                            II.	Interpretación judicial del rol de los CCL<br>
-                                            III.	Requisitos de validez de los convenios<br>
-                                            IV.	Parámetros de legalidad y ejecutabilidad
-                                            <br><br>
-                                            S1M3U3 El convenio conciliatorio<br>
-                                            I.	Naturaleza jurídica del convenio<br>
-                                            II.	Requisitos formales y de fondo<br>
-                                            III.	Límites a la autonomía de la voluntad<br>
-                                            IV.	Homologación y ejecución del convenio
-                                        </h5>
+                                                    <div class="mt-4 d-flex gap-2">
+                                                        <a href="{{ route('capacitaciones.calificaciones', 1)}}" class="btn btn-outline-custom mr-2">
+                                                            <i class="fas fa-star mr-1"></i> Calificaciones
+                                                        </a>
+                                                        <a href="{{ route('capacitaciones.calificaciones', 1)}}" class="btn btn-outline-custom mr-2">
+                                                            <i class="fas fa-star mr-1"></i> Inicar Módulo
+                                                        </a>
+                                                        @if("Teminsd" == "Terminado")
+                                                            <a href="{{ route('capacitaciones.addpersonas', 1)}}" class="btn btn-custom">
+                                                                <i class="fas fa-user-plus mr-1"></i> Inscribir Participantes
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 

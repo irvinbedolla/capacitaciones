@@ -30,7 +30,7 @@
 
 
                             <!--Se realiza el envío de datos con formulario de Laravel Collective-->
-                            <form class='needs-validation novalidate' id='form_roles' method='POST' action="{{route('expedientes.store')}}">
+                            <form class='needs-validation novalidate' id='form_roles' method='POST' action="{{route('expedientes.store')}}" enctype='multipart/form-data'>
                                 @csrf
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -69,6 +69,77 @@
                                             value="{{ $persona != NULL ? $persona->telefono : '' }} " maxlength=10 required> 
                                         </div>
                                     </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">*Ultimo grado de estudio</label>
+                                            <input type="text" name="estudio_maximo" class="form-control" 
+                                            value="{{ $persona != NULL ? $persona->estudio_maximo : '' }} " maxlength=10 required> 
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">*Titulo universitario</label>
+                                            <input type="text" name="tilulo_universitario" class="form-control" 
+                                            value="{{ $persona != NULL ? $persona->tilulo_universitario : '' }} " maxlength=10 required> 
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">*Especialidades</label>
+                                            <input type="text" name="especialidades" class="form-control" 
+                                            value="{{ $persona != NULL ? $persona->especialidades : '' }} " maxlength=10 required> 
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">*Diplomados</label>
+                                            <input type="text" name="diplomados" class="form-control" 
+                                            value="{{ $persona != NULL ? $persona->diplomados : '' }} " maxlength=10 required> 
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">*Seminarios</label>
+                                            <input type="text" name="seminarios" class="form-control" 
+                                            value="{{ $persona != NULL ? $persona->seminarios : '' }} " maxlength=10 required> 
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">*Cursos</label>
+                                            <input type="text" name="cursos" class="form-control" 
+                                            value="{{ $persona != NULL ? $persona->cursos : '' }} " maxlength=10 required> 
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">*Acciones de desarrollo</label>
+                                            <input type="text" name="acciones_desarrollo" class="form-control" 
+                                            value="{{ $persona != NULL ? $persona->acciones_desarrollo : '' }} " maxlength=10 required> 
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">*Observaciones</label>
+                                            <input type="text" name="observaciones" class="form-control" 
+                                            value="{{ $persona != NULL ? $persona->observaciones : '' }} " maxlength=10 required> 
+                                        </div>
+                                    </div>
+                                    <!--div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                                <label for="archivo_constancia">*Selecciona un archivo:</label>
+                                                <input type="file" name="constancia" id="archivo_constancia" accept="image/*, .pdf,"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            
+                                                <label for="archivo_dentificacion">*Selecciona un archivo:</label>
+                                                <input type="file" name="identificacion" id="archivo_dentificacion" accept="image/*, .pdf,"/>
+
+                                        </div>
+                                    </div-->
                                 </div>
                                 <div class="row">
 
