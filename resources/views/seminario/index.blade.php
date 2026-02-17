@@ -42,8 +42,11 @@
                                                                 <button class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar este seminario?')"; type="submit">Eliminar</button>
                                                             </form>
                                                         @endcan
-                                                    </td>
-                                                </tr>
+                                                        @can('ver-curso')
+                                                            <a class="btn btn-success" href="{{ route('respuestas', $seminario->id) }}" onclick=ver_respuestas();>Ver respuestas</a>
+                                                        @endcan
+                                                    </td>   
+                                                </tr>   
                                             @endforeach
                                         </tbody>
                                     </table>

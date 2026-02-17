@@ -145,8 +145,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/seminario/eliminar/{id}',       [SeminarioController::class, 'eliminar'])->name('eliminarSeminario');
         Route::get('/seminario/editar/{id}',            [SeminarioController::class, 'editar'])->name('editarSeminario');
         Route::patch('/seminario/actualizar/{id}',    [SeminarioController::class, 'actualizar'])->name('seminarios.actualizar');
-    //Fin de seminarios
-
+        Route::get('/seminario/respuestas/{id}',      [SeminarioController::class, 'respuestas'])->name('respuestas');
+        Route::get('/seminario/{id}/crear_respuesta', [SeminarioController::class, 'crearRespuesta'])->name('crearRespuesta');
+        Route::post('/seminario/{id}/respuestas/guardar', [SeminarioController::class, 'guardarRespuesta'])->name('guardarRespuesta');
+        Route::get('/seminario/respuestas/{id}/editar', [SeminarioController::class, 'editarRespuesta'])->name('respuestas.editar');
+        Route::patch('/seminario/respuestas/{id}/actualizar', [SeminarioController::class, 'actualizarRespuesta'])->name('respuestas.actualizar');
+        Route::delete('/seminario/respuestas/{id}',   [SeminarioController::class, 'eliminarRespuesta'])->name('respuestas.eliminar');
 });
 
 Route::get('/error', function () {

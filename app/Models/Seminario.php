@@ -12,5 +12,9 @@ class Seminario extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['nombre','fecha_inicial','fecha_final'];
 
+    public function respuestas()
+    {
+        return $this->hasMany(Respuesta::class, 'seminario_id');
+    }
     
 }
