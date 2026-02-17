@@ -20,6 +20,7 @@ use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CorreosController;
+use App\Http\Controllers\PonenteController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -54,7 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Rutas de los menus
         Route::get('/usuarios/index',           [UsuarioController::class, 'index'])->name('usuarios');
         Route::get('/roles/index',              [RolController::class, 'index'])->name('roles');
-        Route::get('/capacitaciones/index',     [CapacitacionController::class, 'index'])->name('capacitaciones');
+        Route::get('/capacitaciones/indexr',     [CapacitacionController::class, 'index'])->name('capacitaciones');
         Route::get('/miscapacitaciones/index',  [MiscapacitacionController::class, 'index'])->name('miscapacitaciones');
         Route::get('/expedientes/index',        [ExpedienteController::class, 'index'])->name('expedientes');
         Route::get('/seer/index',               [SeerController::class, 'index'])->name('seer');
@@ -87,8 +88,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Fin roles
     
     //Capacitaciones
-        Route::get('/capacitaciones/index',                         [CapacitacionController::class, 'index'])->name('capacitaciones.index');
-        Route::get('/capacitaciones/index',                         [CapacitacionController::class, 'index'])->name('capacitaciones');
+        Route::get('/capacitaciones/index1',                         [CapacitacionController::class, 'index'])->name('capacitaciones.index');
+        Route::get('/capacitaciones/index2',                         [CapacitacionController::class, 'index'])->name('capacitaciones');
         Route::get('/capacitaciones/create',                        [CapacitacionController::class, 'create'])->name('capacitaciones.create');
         Route::get('/capacitaciones/edit/{id}',                     [CapacitacionController::class, 'edit'])->name('capacitaciones.edit');
         Route::post('/capacitaciones/guardar_capacitacion',         [CapacitacionController::class, 'crear_capacitacion'])->name('crear_capacitacion');
@@ -113,7 +114,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/capacitaciones/terminar/{id}',                 [CapacitacionController::class, 'terminar'])->name('capacitaciones.terminado');
     //Fin capacitaciones    
     //Mis Capacitaciones
-        Route::get('/capacitaciones/index',                         [MiscapacitacionController::class, 'index'])->name('mis_capacitaciones');
+        Route::get('/miscapacitaciones/index',                      [MiscapacitacionController::class, 'index'])->name('mis_capacitaciones');
     //Fin mis capacitaciones
     //Expedientes
         Route::get('/expedientes/index',                        [ExpedienteController::class, 'index'])->name('expedientes.index');
@@ -126,7 +127,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/expedientes/doc',                         [ExpedienteController::class, 'store_documento'])->name('subir_doc');
         Route::delete('/expedientes/destroy/{id}',              [ExpedienteController::class, 'destroy'])->name('expedientes.delete');
     //Fin de Expedientes
-    
+        Route::get('/ponentes/index',                           [PonenteController::class, 'index'])->name('ponentes.index');
+        Route::get('/ponentes/index',                           [PonenteController::class, 'index'])->name('ponentes');
+        Route::get('/ponentes/edit/{id}',                       [PonenteController::class, 'edit'])->name('ponentes.edit');
+        Route::post('/ponentes/store',                          [PonenteController::class, 'store'])->name('ponentes.store');
+        Route::get('/ponentes/create',                          [PonenteController::class, 'create'])->name('ponentes.create');
+        Route::get('/ponentes/images',                          [PonenteController::class, 'store_image'])->name('ponentes.guardar_foto');
+        Route::delete('/ponentes/destroy/{id}',                 [PonenteController::class, 'destroy'])->name('ponentes.delete');
+        Route::patch('/ponentes/update/{post}',                 [PonenteController::class, 'update'])->name('ponentes.update');
+
+
+
+
     //Cambiar las contraseña
         Route::get('/cambio_contraseña/index',  [HomeController::class, 'password_cambiar'])->name('password_cambiar');
         Route::post('/notificaciones/editar',   [HomeController::class, 'contraseña_update'])->name('contraseña_update'); 
@@ -144,6 +156,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/seminario/guardar',               [SeminarioController::class, 'guardar'])->name('seminarios.guardar');
         Route::delete('/seminario/eliminar/{id}',       [SeminarioController::class, 'eliminar'])->name('eliminarSeminario');
         Route::get('/seminario/editar/{id}',            [SeminarioController::class, 'editar'])->name('editarSeminario');
+        Route::patch('/seminario/actualizar/{id}',    [SeminarioController::class, 'actualizar'])->name('seminarios.actualizar');
+        Route::get('/seminario/respuestas/{id}',      [SeminarioController::class, 'respuestas'])->name('respuestas');
+        Route::get('/seminario/{id}/crear_respuesta', [SeminarioController::class, 'crearRespuesta'])->name('crearRespuesta');
+        Route::post('/seminario/{id}/respuestas/guardar', [SeminarioController::class, 'guardarRespuesta'])->name('guardarRespuesta');
+        Route::get('/seminario/respuestas/{id}/editar', [SeminarioController::class, 'editarRespuesta'])->name('respuestas.editar');
+        Route::patch('/seminario/respuestas/{id}/actualizar', [SeminarioController::class, 'actualizarRespuesta'])->name('respuestas.actualizar');
+        Route::delete('/seminario/respuestas/{id}',   [SeminarioController::class, 'eliminarRespuesta'])->name('respuestas.eliminar');
         Route::patch('/seminario/actualizar/{id}',      [SeminarioController::class, 'actualizar'])->name('seminarios.actualizar');
         Route::get('/seminario/agregar/{id}',           [SeminarioController::class, 'agregar'])->name('agregarModulo');
         Route::patch('/seminario/_agregar/{id}',        [SeminarioController::class, '_agregar'])->name('seminarios._agregar');

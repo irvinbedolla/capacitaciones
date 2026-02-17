@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Seminario;
+use App\Models\Respuesta;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -128,4 +129,99 @@ class SeminarioController extends Controller
         }
     }
 
+
+    public function respuestas($id)
+    {
+        $seminario = Seminario::findOrFail($id);
+        $respuestas = Respuesta::where('seminario_id', $id)->get();
+
+        return view('seminario.respuestas', compact('seminario', 'respuestas'));
+    }
+
+
+    public function crearRespuesta($id){
+        $seminario = Seminario::findOrFail($id);
+        return view('seminario.crear_respuesta', compact('seminario'));
+    }
+
+    public function guardarRespuesta(Request $request, $id)
+    {
+        $request->validate([
+            'pregunta' => 'required|string',
+            'respuestas' => 'required|array|size:4',
+            'respuestas.*' => 'required|string',
+            'respuesta_correcta' => 'required|integer|between:0,3',
+            'oportunidades' => 'required|integer',
+            'tiempo' => 'required|integer|min:5'
+        ]);
+
+        // Convertir minutos a formato HH:MM:SS
+        $minutos = (int)$request->tiempo;
+        $horas = intdiv($minutos, 60);
+        $mins = $minutos % 60;
+        $tiempoFormato = sprintf('%02d:%02d:00', $horas, $mins);
+
+        Respuesta::create([
+            'seminario_id' => $id,
+            'modulo_id' => $request->modulo_id ?? 1,
+            'oportunidades' => $request->oportunidades,
+            'tiempo' => $tiempoFormato,
+            'pregunta' => $request->pregunta,
+            'respuestas' => json_encode($request->respuestas),
+            'respuesta_correcta' => $request->respuesta_correcta
+        ]);
+
+        return redirect()
+            ->route('respuestas', $id)
+            ->with('success', 'Pregunta guardada correctamente');
+    }
+
+    public function editarRespuesta($id)
+    {
+        $respuesta = Respuesta::findOrFail($id);
+        $seminario = Seminario::findOrFail($respuesta->seminario_id);
+        
+        return view('seminario.editar_respuesta', compact('respuesta', 'seminario'));
+    }
+
+    public function actualizarRespuesta(Request $request, $id)
+    {
+        $respuesta = Respuesta::findOrFail($id);
+        
+        $request->validate([
+            'pregunta' => 'required|string',
+            'respuestas' => 'required|array|size:4',
+            'respuestas.*' => 'required|string',
+            'respuesta_correcta' => 'required|integer|between:0,3',
+            'oportunidades' => 'required|integer',
+            'tiempo' => 'required|integer|min:5'
+        ]);
+
+        // Convertir minutos a formato HH:MM:SS
+        $minutos = (int)$request->tiempo;
+        $horas = intdiv($minutos, 60);
+        $mins = $minutos % 60;
+        $tiempoFormato = sprintf('%02d:%02d:00', $horas, $mins);
+
+        $respuesta->update([
+            'oportunidades' => $request->oportunidades,
+            'tiempo' => $tiempoFormato,
+            'pregunta' => $request->pregunta,
+            'respuestas' => json_encode($request->respuestas),
+            'respuesta_correcta' => $request->respuesta_correcta
+        ]);
+
+        return redirect()
+            ->route('respuestas', $respuesta->seminario_id)
+            ->with('success', 'Pregunta actualizada correctamente');
+    }
+
+    public function eliminarRespuesta($id)
+    {
+        $respuesta = Respuesta::findOrFail($id);
+        $seminarioId = $respuesta->seminario_id;
+        $respuesta->delete();
+
+        return redirect()->route('respuestas', $seminarioId)->with('success', 'Pregunta eliminada correctamente');
+    }
 }

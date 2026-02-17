@@ -1,111 +1,201 @@
-<!doctype html>
-<html lang="es" data-bs-theme="auto">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="" />
-        <meta
-        name="author"
-        content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-        />
-        <meta name="generator" content="Astro v5.13.2" />
-        <title>Sistema de Capacitaciones de CONACENTROS</title>
-        <link
-        rel="canonical"
-        href="https://getbootstrap.com/docs/5.3/examples/carousel/"
-        />
-        <script src="public/assets/js/color-modes.js"></script>
-        <link href="public/assets/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <meta name="theme-color" content="#712cf9" />
-        <link href="public/assets/carousel.css" rel="stylesheet" />
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capacitaciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+</head>
         <style>
-            .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                user-select: none;
-            }
-            @media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-                }
-            }
-            .b-example-divider {
-                width: 100%;
-                height: 3rem;
-                background-color: #0000001a;
-                border: solid rgba(0, 0, 0, 0.15);
-                border-width: 1px 0;
-                box-shadow:
-                inset 0 0.5em 1.5em #0000001a,
-                inset 0 0.125em 0.5em #00000026;
-            }
-            .b-example-vr {
-                flex-shrink: 0;
-                width: 1.5rem;
-                height: 100vh;
-            }
-            .bi {
-                vertical-align: -0.125em;
-                fill: currentColor;
-            }
-            .nav-scroller {
-                position: relative;
-                z-index: 2;
-                height: 2.75rem;
-                overflow-y: hidden;
-            }
-            .nav-scroller .nav {
-                display: flex;
-                flex-wrap: nowrap;
-                padding-bottom: 1rem;
-                margin-top: -1px;
-                overflow-x: auto;
-                text-align: center;
-                white-space: nowrap;
-                -webkit-overflow-scrolling: touch;
-            }
-            .btn-bd-primary {
-                --bd-violet-bg: #712cf9;
-                --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-                --bs-btn-font-weight: 600;
-                --bs-btn-color: var(--bs-white);
-                --bs-btn-bg: var(--bd-violet-bg);
-                --bs-btn-border-color: var(--bd-violet-bg);
-                --bs-btn-hover-color: var(--bs-white);
-                --bs-btn-hover-bg: #6528e0;
-                --bs-btn-hover-border-color: #6528e0;
-                --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-                --bs-btn-active-color: var(--bs-btn-hover-color);
-                --bs-btn-active-bg: #5a23c8;
-                --bs-btn-active-border-color: #5a23c8;
-            }
-            .bd-mode-toggle {
-                z-index: 1500;
-            }
-            .bd-mode-toggle .bi {
-                width: 1em;
-                height: 1em;
-            }
-            .bd-mode-toggle .dropdown-menu .active .bi {
-                display: block !important;
-            }
-        </style>
-    </head>
+        .fila-dividida {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            min-height: 450px; 
+            align-items: center; 
+        }
+
+        .columna-mitad {
+            width: 50%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .fila-formulario {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+
+        .label-alineado {
+            width: 160px;       
+            text-align: right;  
+            margin-right: 15px; 
+            color: #333;
+            font-weight: normal;
+            font-size: 0.95rem;
+        }
+
+        .input-classic {
+            width: 210px;     
+            padding: 4px 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 0.9rem;
+        }
+
+        .header-diagonal {
+            background: linear-gradient(115deg, #ffffff 50%, #4d6666 50.1%);
+            padding: 15px 0;
+            border-bottom: 5px solid #D4AF37;
+        }
+
+        h3 {
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 1.6rem;
+            color: #333;
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .btn-classic {
+            background-color: #e6e6e6;
+            border: 1px solid #bfbfbf;
+            color: #333;
+            padding: 5px 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 3px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .btn-classic:hover { background-color: #dcdcdc; }
+
+        .footer-bar {
+            background-color: #4d6666;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 0.75rem;
+        }
+        .center {
+            flex-direction: row;
+            width: 100%;
+            min-height: 450px; 
+            align-items: center;      
+        }
+        .columna-center {
+            padding: 50px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .fila-dividida { flex-direction: column; }
+            .columna-mitad { width: 100%; min-height: auto; }
+            .label-alineado { width: auto; text-align: left; margin-right: 0; }
+            .fila-formulario { flex-direction: column; align-items: flex-start; padding-left: 20%; }
+            .input-classic { width: 100%; }
+        }
+    </style>
+
+    <div class="container-fluid p-0">
+        <div class="header-diagonal">
+            <div class="container">
+                <div style="display: flex; align-items: center;">
+                    <div><img src="public/assets/images/ccl-r.png" style="max-height: 60px;"></div>
+                    <!--div style="text-align: right;"><img src="public/assets/images/ccl-r.png" style="max-height: 55px;"></!--div-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        
+        <div class = "center">
+            <div class="columna-center">
+                <h3>Crear nuevo usuario</h3>
+<!--Se realiza la validación de campos para ver si dejó alguno vacío-->
+                @if ($errors->any())
+                    <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                        <strong>¡Revise los campos!</strong>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                <<span class="badge badge-danger">{{ $error }}</span>>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+                <form method="POST" action="{{ route('store_public') }}">
+                    @csrf
+                    
+                    <div class="fila-formulario">
+                        <label for="name" class ="label-alineado">Nombre Completo</label>
+                            <input type="text" class="input-classic" name="name"  required>
+                            <div class="invalid-feedback">
+                                El nombre es obligatorio.
+                            </div>
+                    </div>
+
+                    <div class="fila-formulario">
+                        <label for="email" class ="label-alineado">Email</label>
+                            <input type="email" class="input-classic" name="email" required>
+                            <div class="invalid-feedback">
+                                El Email es obligatorio.
+                            </div>
+                    </div>
+                    <div class="fila-formulario">
+                        <label for="password" class ="label-alineado">Password</label>
+                            <input type="password" class="input-classic" name="password" required>
+                            <div class="invalid-feedback">
+                                La contraseña es obligatoria.
+                            </div>
+                    </div>
+                    <div class="fila-formulario">
+                        <label for="confirm-password" class ="label-alineado">Confirmar Password</label>
+                            <input type="password" class="input-classic" name="confirm-password" required>
+                            <div class="invalid-feedback">
+                                La contraseña es obligatoria.
+                            </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 25px; margin-bottom: 15px;">
+                        <button type="submit" class="btn-classic">
+                            Guardar
+                        </button>
+                    </div>
+
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+     <div class="container-fluid footer-bar">
+        Derechos reservados © ® 2021 - 2026 | <span style="color:#D4AF37;">Centro de Conciliación Laboral del Estado de Michoacán</span> | 
+        <br> Blvd. García de León NO. 1575, Col. Chapultepec Oriente, C.P.58260 Morelia, Michoacán de Ocampo. | 
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
   <body>
 
 
-<div class="container">
+<!--div class="container">
     <h1>Crear Nuevo Usuario</h1>
-            <!--Se realiza la validación de campos para ver si dejó alguno vacío-->
+            <Se realiza la validación de campos para ver si dejó alguno vacío>
             @if ($errors->any())
                 <div class="alert alert-dark alert-dismissible fade show" role="alert">
                     <strong>¡Revise los campos!</strong>
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
-                            <!--<span class="badge badge-danger">{{ $error }}</span>-->
+                            <<span class="badge badge-danger">{{ $error }}</span>>
                         @endforeach
                     </ul>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -162,4 +252,5 @@
                     </div>
             </div>
         </form>   
-</div>
+</div-->
+
