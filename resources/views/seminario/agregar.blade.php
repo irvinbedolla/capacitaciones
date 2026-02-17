@@ -63,26 +63,14 @@
                                         </div>
                                     </div>
 
-                                    
-
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="documento">Cargar documento:</label>
-                                            <input type="file" name="documento" accept="application/pdf" class="form-control" required>
-                                        </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12"><br>
+                                        <h5>Recursos del Módulo</h5>
+                                        <button id="addRecurso" type="button" class="btn btn-info mb-3">+ Agregar recurso</button>
                                     </div>
-
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="url">URL</label>
-                                            <input type="text" maxlength="100" class="form-control" name="url" required>
-                                            <div class="invalid-feedback">
-                                                La URL es obligatoria.
-                                            </div>
-                                        </div>
-                                    </div>
+                                        
+                                    <div id="newRowRecurso"></div>
                                    
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="col-xs-12 col-sm-12 col-md-6" id="btnGuardar" style="display: none;">
                                         <button type="submit" class="btn btn-primary">Guardar</button>
                                     </div>
                                     
@@ -104,47 +92,105 @@
 
 @section('scripts')
 <script>
-    let contadorCampos = 0;
-    
-    document.getElementById('agregar-campos').addEventListener('click', function() {
-        contadorCampos++;
-        
-        const nuevosCampos = `
-            <div class="row campos-grupo" id="grupo-${contadorCampos}">
-                <div class="col-xs-12 col-sm-12 col-md-6">
-                    <div class="form-group">
-                        <label for="documento">Cargar documento:</label>
-                        <input type="file" name="documento[]" accept="application/pdf" class="form-control">
-                    </div>
-                </div>
+    $(document).ready(function() {
+        let contadorRecursos = 0;
 
-                <div class="col-xs-12 col-sm-12 col-md-5">
-                    <div class="form-group">
-                        <label for="url">URL</label>
-                        <input type="text" maxlength="100" class="form-control" name="url[]">
-                    </div>
-                </div>
+        // Agregar recurso
+        $("#addRecurso").click(function () {
+            contadorRecursos++;
+            var html = '';
+            
+            html += '<div class="recurso-item border p-3 mb-3 rounded" id="recurso_' + contadorRecursos + '">';
+            html += '<div class="row">';
+            
+            // Selector de tipo de recurso
+            html += '<div class="col-12 mb-3">';
+            html += '<label for="tipoRecurso_' + contadorRecursos + '"><strong>Recurso #' + contadorRecursos + '</strong> - Seleccione el tipo:</label>';
+            html += '<select name="tipo_recursos[]" id="tipoRecurso_' + contadorRecursos + '" class="form-control tipo-recurso-select" data-recurso="' + contadorRecursos + '" required>';
+            html += '<option value="">-- Seleccione tipo de recurso --</option>';
+            html += '<option value="pdf">PDF</option>';
+            html += '<option value="url">URL</option>';
+            html += '</select>';
+            html += '</div>';
+            
+            // Contenedor para campos dinámicos según el tipo
+            html += '<div class="col-12 campos-recurso" id="campos_recurso_' + contadorRecursos + '">';
+            html += '</div>';
+            
+            // Botón eliminar
+            html += '<div class="col-12 text-right">';
+            html += '<button class="removeRecurso btn btn-danger btn-sm" type="button" data-recurso="' + contadorRecursos + '">';
+            html += '<i class="fas fa-trash"></i> Eliminar recurso';
+            html += '</button>';
+            html += '</div>';
+            
+            html += '</div>';
+            html += '</div>';
+            
+            $('#newRowRecurso').append(html);
+                verificarRecursos();
+        });
 
-                <div class="col-xs-12 col-sm-12 col-md-1">
-                    <div class="form-group">
-                        <label>&nbsp;</label>
-                        <button type="button" class="btn btn-danger btn-block eliminar-campos" data-grupo="${contadorCampos}">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        document.getElementById('campos-dinamicos').insertAdjacentHTML('beforeend', nuevosCampos);
-    });
+        // Manejar cambio en selector de tipo de recurso
+        $(document).on('change', '.tipo-recurso-select', function() {
+            var tipoRecurso = $(this).val();
+            var numeroRecurso = $(this).data('recurso');
+            var contenedor = $('#campos_recurso_' + numeroRecurso);
+            
+            contenedor.empty();
+            
+            if (tipoRecurso === 'pdf') {
+                var htmlPdf = '';
+                htmlPdf += '<div class="form-group">';
+                htmlPdf += '<label for="pdf_' + numeroRecurso + '">Cargar documento PDF:</label>';
+                htmlPdf += '<input type="file" name="recursos_pdf[]" id="pdf_' + numeroRecurso + '" accept="application/pdf" class="form-control-file" required>';
+                htmlPdf += '<small class="form-text text-muted">Solo archivos PDF</small>';
+                htmlPdf += '</div>';
+                contenedor.html(htmlPdf);
+            } else if (tipoRecurso === 'url') {
+                var htmlUrl = '';
+                htmlUrl += '<div class="form-group">';
+                htmlUrl += '<label for="url_' + numeroRecurso + '">URL del recurso:</label>';
+                htmlUrl += '<input type="url" name="recursos_url[]" id="url_' + numeroRecurso + '" class="form-control" placeholder="https://ejemplo.com/recurso" required>';
+                htmlUrl += '<small class="form-text text-muted">Ingrese una URL válida</small>';
+                htmlUrl += '</div>';
+                contenedor.html(htmlUrl);
+            }
+            
+            verificarRecursos();
+        });
 
-    // Delegación de eventos para eliminar campos
-    document.getElementById('campos-dinamicos').addEventListener('click', function(e) {
-        if (e.target.classList.contains('eliminar-campos') || e.target.parentElement.classList.contains('eliminar-campos')) {
-            const boton = e.target.classList.contains('eliminar-campos') ? e.target : e.target.parentElement;
-            const grupoId = boton.getAttribute('data-grupo');
-            document.getElementById('grupo-' + grupoId).remove();
+        // Borrar recurso
+        $(document).on('click', '.removeRecurso', function () {
+            var numeroRecurso = $(this).data('recurso');
+            $('#recurso_' + numeroRecurso).remove();
+            actualizarNumeracionRecursos();
+            verificarRecursos();
+        });
+
+        // Actualizar numeración de recursos después de eliminar
+        function actualizarNumeracionRecursos() {
+            $('.recurso-item').each(function(index) {
+                var nuevoNumero = index + 1;
+                $(this).find('label:first strong').text('Recurso #' + nuevoNumero);
+            });
+        }
+
+        // Verificar si hay recursos agregados para mostrar botón guardar
+        function verificarRecursos() {
+            var recursosCompletados = 0;
+            
+            $('.tipo-recurso-select').each(function() {
+                if ($(this).val() !== '') {
+                    recursosCompletados++;
+                }
+            });
+            
+            if (recursosCompletados > 0) {
+                $('#btnGuardar').show();
+            } else {
+                $('#btnGuardar').hide();
+            }
         }
     });
 </script>

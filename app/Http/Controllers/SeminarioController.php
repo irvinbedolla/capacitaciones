@@ -88,14 +88,44 @@ class SeminarioController extends Controller
 
     public function agregar($id)
     {
-        #dd($id)
         $seminario = Seminario::find($id);
         return view('seminario.agregar', compact('seminario'));
     }
 
     public function _agregar(Request $request, $id)
     {
+        $data = $request->all();
+    
+        //Validar documentacion
+        request()->validate([
+            'name'      => 'required',
+            'numero_modulo' => 'required|numeric',
+            'contenido' => 'required',
+        ], $data);
+
+        // Datos del primer documento (campos fijos)
+        $primerDocumento = $request->file('documento');
+        $primerUrl = $request->input('url');
         
+        // Datos de documentos adicionales (campos dinámicos)
+        $documentosAdicionales = $request->file('documentos'); // Array de archivos
+        $urlsAdicionales = $request->input('urls'); // Array de URLs
+
+        $data_insert=array(
+            'nombre'            => $data["name"],
+            'numero_modulo'     => $data["numero_modulo"],
+            'contenido'         => $data["contenido"],
+            'documento'         => $primerDocumento ? $primerDocumento->store('documentos_modulo') : null,
+            'url'               => $primerUrl
+        );
+        
+        // Ejemplo de recorrido
+        if ($documentosAdicionales) {
+            foreach ($documentosAdicionales as $index => $documento) {
+                $url = $urlsAdicionales[$index] ?? null;
+                
+            }
+        }
     }
 
 }
