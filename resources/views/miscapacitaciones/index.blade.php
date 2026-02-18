@@ -193,6 +193,11 @@
                                                                 <div class="p-3 bg-light border-top rounded-bottom">
                                                                     Aquí van los recursos, videos o lecturas del tema I.
                                                                 </div>
+                                                                <div class="p-3 bg-light border-top border-bottom text-right">
+                                                                    <a href="{{ route('miscapacitaciones.responder_seminario', 1) }}" class="btn btn-primary btn-sm" style="background-color: #6A0F49; border-color: #6A0F49;">
+                                                                        <i class="fas fa-pencil mr-1"></i> Contestar cuestionario
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
 

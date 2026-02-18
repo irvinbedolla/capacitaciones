@@ -29,10 +29,10 @@
     @endauth
     @auth
         @role('Capacitacion Usuario')
-            <a class="nav-link" href="{{ route('mis_capacitaciones') }}">
+            <a class="nav-link" href="{{ route('miscapacitaciones') }}">
                 <i class="bi bi-backpack4-fill"></i><span class="text-dark">Perfil</span>
             </a>
-            <a class="nav-link" href="{{ route('mis_capacitaciones') }}">
+            <a class="nav-link" href="{{ route('miscapacitaciones') }}">
                 <i class="bi bi-backpack4-fill"></i><span class="text-dark">Seminarios</span>
             </a>
             <a class="nav-link" href="# }}">
