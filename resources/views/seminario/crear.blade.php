@@ -30,7 +30,7 @@
                             @endif
 
                             <!--Se realiza el envío de datos con formulario de Laravel Collective-->
-                            <form class='needs-validation novalidate' id='form_roles' method='POST' action="{{route('seminarios.guardar')}}">
+                            <form class='needs-validation novalidate' id='form_seminarios' method='POST' action="{{route('seminarios.guardar')}}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-6">

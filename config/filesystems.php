@@ -95,6 +95,9 @@ return [
         public_path('documentos_notificacion')  => storage_path('app/documentos_notificacion'),
         public_path('images_ponente')           => storage_path('app/ponentes'),
 
+        public_path('documentos_notificacion')  => storage_path('app/documentos_notificacion'),
+        public_path('documentos_modulos')       => storage_path('app/documentos_modulos')
+
     ],
 
 ];
