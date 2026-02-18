@@ -11,6 +11,25 @@
                     <div class="card">
                         <div class="card-body">
                             <h3 class="text-center">Alta de Módulo</h3>
+
+                            <!--Mensajes de éxito o error-->
+                            @if (session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>{{ session('success') }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
+
+                            @if (session('error'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{{ session('error') }}</strong>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
                              
                             <!--Se realiza la validación de campos para ver si dejó alguno vacío-->
                             @if ($errors->any())
@@ -59,6 +78,20 @@
                                             <input type="text" class="form-control" name="contenido" required>
                                             <div class="invalid-feedback">
                                                 El contenido es obligatorio.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="estado">Estado</label>
+                                            <select name="estado" class="form-control" required>
+                                                <option value="">-- Seleccione un estado --</option>
+                                                <option value="pendiente">Pendiente</option>
+                                                <option value="evaluado">Evaluado</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                El estado es obligatorio.
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +161,7 @@
             html += '</div>';
             
             $('#newRowRecurso').append(html);
-                verificarRecursos();
+            verificarRecursos();
         });
 
         // Manejar cambio en selector de tipo de recurso
@@ -143,7 +176,7 @@
                 var htmlPdf = '';
                 htmlPdf += '<div class="form-group">';
                 htmlPdf += '<label for="pdf_' + numeroRecurso + '">Cargar documento PDF:</label>';
-                htmlPdf += '<input type="file" name="recursos_pdf[]" id="pdf_' + numeroRecurso + '" accept="application/pdf" class="form-control-file" required>';
+                htmlPdf += '<input type="file" name="recursos_pdf[]" id="pdf_' + numeroRecurso + '" accept="application/pdf" class="form-control-file recurso-input-file" required>';
                 htmlPdf += '<small class="form-text text-muted">Solo archivos PDF</small>';
                 htmlPdf += '</div>';
                 contenedor.html(htmlPdf);
@@ -151,12 +184,22 @@
                 var htmlUrl = '';
                 htmlUrl += '<div class="form-group">';
                 htmlUrl += '<label for="url_' + numeroRecurso + '">URL del recurso:</label>';
-                htmlUrl += '<input type="url" name="recursos_url[]" id="url_' + numeroRecurso + '" class="form-control" placeholder="https://ejemplo.com/recurso" required>';
-                htmlUrl += '<small class="form-text text-muted">Ingrese una URL válida</small>';
+                htmlUrl += '<input type="url" name="recursos_url[]" id="url_' + numeroRecurso + '" class="form-control recurso-input-url" placeholder="https://ejemplo.com/recurso" required>';
+                htmlUrl += '<small class="form-text text-black-25">Ingrese una URL válida</small>';
                 htmlUrl += '</div>';
                 contenedor.html(htmlUrl);
             }
             
+            verificarRecursos();
+        });
+
+        // Verificar cuando se cambia el archivo PDF
+        $(document).on('change', '.recurso-input-file', function() {
+            verificarRecursos();
+        });
+
+        // Verificar cuando se escribe en el campo URL
+        $(document).on('input', '.recurso-input-url', function() {
             verificarRecursos();
         });
 
@@ -178,15 +221,26 @@
 
         // Verificar si hay recursos agregados para mostrar botón guardar
         function verificarRecursos() {
+            var totalRecursos = $('.recurso-item').length;
             var recursosCompletados = 0;
-            
-            $('.tipo-recurso-select').each(function() {
-                if ($(this).val() !== '') {
+
+            $('.recurso-item').each(function() {
+                var tipoSeleccionado = $(this).find('.tipo-recurso-select').val();
+                var campoLleno = false;
+                
+                if (tipoSeleccionado === 'pdf') {
+                    campoLleno = $(this).find('input[type="file"]').get(0)?.files.length > 0;
+                } else if (tipoSeleccionado === 'url') {
+                    campoLleno = $(this).find('input[type="url"]').val().trim() !== '';
+                }
+                
+                if (tipoSeleccionado !== '' && campoLleno) {
                     recursosCompletados++;
                 }
             });
-            
-            if (recursosCompletados > 0) {
+
+            // Mostrar botón solo si hay recursos Y todos están completados
+            if (totalRecursos > 0 && recursosCompletados === totalRecursos) {
                 $('#btnGuardar').show();
             } else {
                 $('#btnGuardar').hide();
