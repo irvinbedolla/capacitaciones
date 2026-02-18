@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Seminario;
 use App\Models\Respuesta;
+use App\Models\Modulos;
+use App\Models\ModulosDocumentos;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -71,7 +73,7 @@ class SeminarioController extends Controller
         $data_update=array(
                 'nombre'            => $input["name"],
                 'fecha_inicial'     => $input["init_date"],
-                'fecha_final'       => $input["end_date"]
+                'fecha_final'       => $input["end_date"],
         );
     
         Seminario::where('id', $id)->update($data_update);
@@ -96,36 +98,78 @@ class SeminarioController extends Controller
     public function _agregar(Request $request, $id)
     {
         $data = $request->all();
-    
-        //Validar documentacion
-        request()->validate([
-            'name'      => 'required',
+
+        // Validar campos básicos
+        $request->validate([
+            'name'          => 'required|string|max:255',
             'numero_modulo' => 'required|numeric',
-            'contenido' => 'required',
-        ], $data);
+            'contenido'     => 'required|string',
+            'estado'        => 'required|in:pendiente,evaluado',
+            'tipo_recursos' => 'required|array|min:1',
+            'tipo_recursos.*' => 'required|in:pdf,url',
+        ]);
 
-        // Datos del primer documento (campos fijos)
-        $primerDocumento = $request->file('documento');
-        $primerUrl = $request->input('url');
-        
-        // Datos de documentos adicionales (campos dinámicos)
-        $documentosAdicionales = $request->file('documentos'); // Array de archivos
-        $urlsAdicionales = $request->input('urls'); // Array de URLs
+        try {
+            DB::beginTransaction();
 
-        $data_insert=array(
-            'nombre'            => $data["name"],
-            'numero_modulo'     => $data["numero_modulo"],
-            'contenido'         => $data["contenido"],
-            'documento'         => $primerDocumento ? $primerDocumento->store('documentos_modulo') : null,
-            'url'               => $primerUrl
-        );
-        
-        // Ejemplo de recorrido
-        if ($documentosAdicionales) {
-            foreach ($documentosAdicionales as $index => $documento) {
-                $url = $urlsAdicionales[$index] ?? null;
-                
+            // Insertar en tabla modulos
+            $modulo = Modulos::create([
+                'id_seminario'  => $id,
+                'numero_modulo' => $request->numero_modulo,
+                'nombre'        => $request->name,
+                'contenido'     => $request->contenido,
+                'id_ponente'    => 1, // Id de ponente de prueba
+                'status'        => $request->estado
+            ]);
+
+            // Procesar recursos dinámicos
+            $tiposRecursos = $request->input('tipo_recursos');
+            $recursosPdf = $request->file('recursos_pdf') ?? [];
+            $recursosUrl = $request->input('recursos_url') ?? [];
+            
+            $indicePdf = 0;
+            $indiceUrl = 0;
+            
+            foreach ($tiposRecursos as $index => $tipo) {
+                $documentoData = [
+                    'id_modulo'     => $modulo->id,
+                    'id_seminario'  => $id,
+                    'tipo'          => $tipo
+                ];
+
+                if ($tipo === 'pdf' && isset($recursosPdf[$indicePdf])) {
+                    // Guardar el archivo PDF
+                    $archivo = $recursosPdf[$indicePdf];
+                    $nombreArchivo = time() . '_' . $indicePdf . '_' . $archivo->getClientOriginalName();
+                    $rutaPdf = $archivo->storeAs('documentos_modulo', $nombreArchivo, 'public');
+                    
+                    $documentoData['nombre'] = $nombreArchivo;
+                    
+                    ModulosDocumentos::create($documentoData);
+                    
+                    $indicePdf++;
+                } elseif ($tipo === 'url' && isset($recursosUrl[$indiceUrl])) {
+                    $documentoData['nombre'] = $recursosUrl[$indiceUrl];
+                    
+                    ModulosDocumentos::create($documentoData);
+                    
+                    $indiceUrl++;
+                }
             }
+
+            DB::commit();
+
+            return redirect()
+                ->route('generarCursos')
+                ->with('success', 'Módulo y recursos agregados exitosamente.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Error al guardar el módulo: ' . $e->getMessage());
         }
     }
 

@@ -10,7 +10,7 @@ class Seminario extends Model
     //use HasFactory;
     protected $table = 'seminarios';
     protected $primaryKey = 'id';
-    protected $fillable = ['nombre','fecha_inicial','fecha_final'];
+    protected $fillable = ['nombre','fecha_inicial','fecha_final', 'id_ponente'];
 
     public function respuestas()
     {

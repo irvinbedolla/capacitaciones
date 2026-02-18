@@ -16,7 +16,7 @@
             <a class="nav-link" href="{{ route('usuarios') }}">
                 <i class="bi bi-people-fill"></i><span class="text-dark" onclick="usuarios()">Perfil</span>
             </a>
-            <a class="nav-link" href="{{ route('miscapacitaciones') }}">
+            <a class="nav-link" href="{{ route('mis_capacitaciones') }}">
                 <i class="bi bi-backpack4-fill"></i><span class="text-dark" onclick="mis_capacitaciones()">Área de Formación</span>
             </a>
             <a class="nav-link" href="{{ route('expedientes') }}">

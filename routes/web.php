@@ -167,7 +167,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/seminario/respuestas/{id}',   [SeminarioController::class, 'eliminarRespuesta'])->name('respuestas.eliminar');
         Route::patch('/seminario/actualizar/{id}',      [SeminarioController::class, 'actualizar'])->name('seminarios.actualizar');
         Route::get('/seminario/agregar/{id}',           [SeminarioController::class, 'agregar'])->name('agregarModulo');
-        Route::patch('/seminario/_agregar/{id}',        [SeminarioController::class, '_agregar'])->name('seminarios._agregar');
+        Route::post('/seminario/_agregar/{id}',        [SeminarioController::class, '_agregar'])->name('seminarios._agregar');
 
     //Fin de seminarios
 
