@@ -114,7 +114,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/capacitaciones/terminar/{id}',                 [CapacitacionController::class, 'terminar'])->name('capacitaciones.terminado');
     //Fin capacitaciones    
     //Mis Capacitaciones
-        Route::get('/miscapacitaciones/index',                      [MiscapacitacionController::class, 'index'])->name('mis_capacitaciones');
+        Route::get('/miscapacitaciones/index',                      [MiscapacitacionController::class, 'index'])->name('miscapacitaciones');
+        Route::get('/miscapacitaciones/seminario/{id}/responder',   [MiscapacitacionController::class, 'responderSeminario'])->name('miscapacitaciones.responder_seminario');
+        Route::post('/miscapacitaciones/seminario/{id}/responder',  [MiscapacitacionController::class, 'guardarRespuestasSeminario'])->name('miscapacitaciones.guardar_respuestas_seminario');
     //Fin mis capacitaciones
     //Expedientes
         Route::get('/expedientes/index',                        [ExpedienteController::class, 'index'])->name('expedientes.index');
