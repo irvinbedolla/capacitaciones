@@ -7,6 +7,7 @@ use App\Models\Capacitacion;
 use App\Models\Persona;
 use App\Models\Documentos;
 use App\Models\Modulo;
+use App\Models\Modulos;
 use App\Models\CapacitacionEncuesta;
 use App\Models\CapacitacionPersona;
 use App\Models\Seminario;
@@ -30,13 +31,24 @@ class MiscapacitacionController extends Controller
 
     public function responderSeminario($id)
     {
-        $seminario = Seminario::with('respuestas')->findOrFail($id);
-        return view('miscapacitaciones.responder_seminario', compact('seminario'));
+        $seminario = Seminario::findOrFail(1);
+        $modulo = Modulos::where('id_seminario', 1)
+            ->where('numero_modulo', 1)
+            ->first();
+        $preguntas = Respuesta::where('seminario_id', 1)
+            ->where('modulo_id', 1)
+            ->get();
+        $seminario->setRelation('respuestas', $preguntas);
+        return view('miscapacitaciones.responder_seminario', compact('seminario', 'modulo'));
     }
 
     public function guardarRespuestasSeminario(Request $request, $id)
     {
-        $seminario = Seminario::with('respuestas')->findOrFail($id);
+        $seminario = Seminario::findOrFail(1);
+        $preguntas = Respuesta::where('seminario_id', 1)
+            ->where('modulo_id', 1)
+            ->get();
+        $seminario->setRelation('respuestas', $preguntas);
         $respuestasUsuario = $request->input('respuestas', []);
 
         $total = $seminario->respuestas->count();

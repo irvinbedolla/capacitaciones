@@ -38,6 +38,19 @@
                             @csrf
 
                             <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label>Módulo</label>
+                                        <select name="modulo_id" class="form-control" required>
+                                            <option value="">Seleccione un módulo</option>
+                                            @foreach($modulos as $modulo)
+                                                <option value="{{ $modulo->id }}" {{ old('modulo_id') == $modulo->id ? 'selected' : '' }}>
+                                                    Módulo {{ $modulo->numero_modulo }} - {{ $modulo->nombre }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
@@ -73,29 +86,6 @@
                                         </div>
                                     </div>
                                 @endfor
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <label>Oportunidades</label>
-                                        <input type="number"
-                                               name="oportunidades"
-                                               class="form-control"
-                                               value="{{ old('oportunidades', 1) }}"
-                                               required>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <label>Tiempo limite (minutos).</label>
-                                        <input type="number"
-                                               name="tiempo"
-                                               class="form-control"
-                                               min="5"
-                                               value="{{ old('tiempo', 5) }}"
-                                               required>
-                                    </div>
-                                </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <button type="submit"

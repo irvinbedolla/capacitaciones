@@ -177,15 +177,17 @@ class SeminarioController extends Controller
     public function respuestas($id)
     {
         $seminario = Seminario::findOrFail($id);
+        $modulos = Modulos::where('id_seminario', $id)->get();
         $respuestas = Respuesta::where('seminario_id', $id)->get();
 
-        return view('seminario.respuestas', compact('seminario', 'respuestas'));
+        return view('seminario.respuestas', compact('seminario', 'modulos', 'respuestas'));
     }
 
 
     public function crearRespuesta($id){
         $seminario = Seminario::findOrFail($id);
-        return view('seminario.crear_respuesta', compact('seminario'));
+        $modulos = Modulos::where('id_seminario', $id)->get();
+        return view('seminario.crear_respuesta', compact('seminario', 'modulos'));
     }
 
     public function guardarRespuesta(Request $request, $id)
@@ -195,21 +197,12 @@ class SeminarioController extends Controller
             'respuestas' => 'required|array|size:4',
             'respuestas.*' => 'required|string',
             'respuesta_correcta' => 'required|integer|between:0,3',
-            'oportunidades' => 'required|integer',
-            'tiempo' => 'required|integer|min:5'
+            'modulo_id' => 'required|exists:modulos,id'
         ]);
-
-        // Convertir minutos a formato HH:MM:SS
-        $minutos = (int)$request->tiempo;
-        $horas = intdiv($minutos, 60);
-        $mins = $minutos % 60;
-        $tiempoFormato = sprintf('%02d:%02d:00', $horas, $mins);
 
         Respuesta::create([
             'seminario_id' => $id,
-            'modulo_id' => $request->modulo_id ?? 1,
-            'oportunidades' => $request->oportunidades,
-            'tiempo' => $tiempoFormato,
+            'modulo_id' => $request->modulo_id,
             'pregunta' => $request->pregunta,
             'respuestas' => json_encode($request->respuestas),
             'respuesta_correcta' => $request->respuesta_correcta
@@ -224,8 +217,9 @@ class SeminarioController extends Controller
     {
         $respuesta = Respuesta::findOrFail($id);
         $seminario = Seminario::findOrFail($respuesta->seminario_id);
+        $modulos = Modulos::where('id_seminario', $seminario->id)->get();
         
-        return view('seminario.editar_respuesta', compact('respuesta', 'seminario'));
+        return view('seminario.editar_respuesta', compact('respuesta', 'seminario', 'modulos'));
     }
 
     public function actualizarRespuesta(Request $request, $id)
@@ -237,19 +231,11 @@ class SeminarioController extends Controller
             'respuestas' => 'required|array|size:4',
             'respuestas.*' => 'required|string',
             'respuesta_correcta' => 'required|integer|between:0,3',
-            'oportunidades' => 'required|integer',
-            'tiempo' => 'required|integer|min:5'
+            'modulo_id' => 'required|exists:modulos,id'
         ]);
 
-        // Convertir minutos a formato HH:MM:SS
-        $minutos = (int)$request->tiempo;
-        $horas = intdiv($minutos, 60);
-        $mins = $minutos % 60;
-        $tiempoFormato = sprintf('%02d:%02d:00', $horas, $mins);
-
         $respuesta->update([
-            'oportunidades' => $request->oportunidades,
-            'tiempo' => $tiempoFormato,
+            'modulo_id' => $request->modulo_id,
             'pregunta' => $request->pregunta,
             'respuestas' => json_encode($request->respuestas),
             'respuesta_correcta' => $request->respuesta_correcta

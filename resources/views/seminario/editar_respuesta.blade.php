@@ -39,6 +39,19 @@
                             @method('PATCH')
 
                             <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label>Módulo</label>
+                                        <select name="modulo_id" class="form-control" required>
+                                            <option value="">Seleccione un módulo</option>
+                                            @foreach($modulos as $modulo)
+                                                <option value="{{ $modulo->id }}" {{ $respuesta->modulo_id == $modulo->id ? 'selected' : '' }}>
+                                                    Módulo {{ $modulo->numero_modulo }} - {{ $modulo->nombre }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
@@ -81,34 +94,6 @@
                                         </div>
                                     </div>
                                 @endfor
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <label>Oportunidades</label>
-                                        <input type="number"
-                                               name="oportunidades"
-                                               class="form-control"
-                                               value="{{ $respuesta->oportunidades }}"
-                                               required>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <label>Tiempo limite (minutos).</label>
-                                        @php
-                                            $horas = (int)substr($respuesta->tiempo, 0, 2);
-                                            $mins = (int)substr($respuesta->tiempo, 3, 2);
-                                            $minutos = ($horas * 60) + $mins;
-                                        @endphp
-                                        <input type="number"
-                                               name="tiempo"
-                                               class="form-control"
-                                               min="5"
-                                               value="{{ $minutos }}"
-                                               required>
-                                    </div>
-                                </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <button type="submit"
