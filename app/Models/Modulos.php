@@ -22,11 +22,12 @@ class Modulos extends Model
 
     public function documentos()
     {
-        return $this->hasMany(ModuloDocumento::class, 'id_modulo');
+        return $this->hasMany(ModulosDocumentos::class, 'id_modulo');
     }
 
     public function seminario()
     {
         return $this->belongsTo(Seminario::class, 'id_seminario');
     }
+    
 }

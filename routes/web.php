@@ -7,13 +7,13 @@ use App\Http\Controllers\Apps\UserManagementController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CursosController;
 use App\Http\Controllers\SeminarioController;
+use App\Http\Controllers\ModuloController;
 use App\Http\Controllers\CapacitacionController;
 use App\Http\Controllers\MiscapacitacionController;
 use App\Http\Controllers\ExpedienteController;
@@ -168,6 +168,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/seminario/actualizar/{id}',      [SeminarioController::class, 'actualizar'])->name('seminarios.actualizar');
         Route::get('/seminario/agregar/{id}',           [SeminarioController::class, 'agregar'])->name('agregarModulo');
         Route::post('/seminario/_agregar/{id}',        [SeminarioController::class, '_agregar'])->name('seminarios._agregar');
+        Route::get('/modulo/index/{id}',            [ModuloController::class, 'index'])->name('verModulos');
+        Route::delete('/borrar_modulo/{id}/{mod}', [ModuloController::class, 'borrar_modulo'])->name('borrarModulo');
 
     //Fin de seminarios
 
