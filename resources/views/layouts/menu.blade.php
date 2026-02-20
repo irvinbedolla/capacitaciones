@@ -17,7 +17,7 @@
                 <i class="bi bi-people-fill"></i><span class="text-dark" onclick="usuarios()">Perfil</span>
             </a>
             <a class="nav-link" href="{{ route('miscapacitaciones') }}">
-                <i class="bi bi-backpack4-fill"></i><span class="text-dark" onclick="mis_capacitaciones()">Área de Formación</span>
+                <i class="bi bi-backpack4-fill"></i><span class="text-dark" onclick="miscapacitaciones()">Área de Formación</span>
             </a>
             <a class="nav-link" href="{{ route('expedientes') }}">
                 <i class="bi bi-graph-down"></i><span class="text-dark" onclick="expedientes()">Expediente</span>

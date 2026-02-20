@@ -34,21 +34,26 @@
                                                     <td>{{$seminario->fecha_final}}</td>
                                                     <td>
                                                         @can('editar-curso')
-                                                            <a class="btn btn-info mb-1" href="{{ route('editarSeminario', $seminario->id) }}" onclick=editar_seminario();>Editar</a>
+                                                            <a class="btn btn-success mb-1" href="{{ route('editarSeminario', $seminario->id) }}" onclick=editar_seminario();>Editar</a>
                                                         @endcan
-                                                        @can('borrar-curso')
+                                                        @can('ver-curso')
+                                                            <a class="btn btn-info mb-1" href="{{ route('respuestas', $seminario->id) }}" onclick=ver_respuestas();>Ver respuestas</a>
+                                                        @endcan
+                                                            @can('borrar-curso')
                                                             <form method="POST" action="{{ route('eliminarSeminario', $seminario->id) }}">
                                                             @csrf
                                                                 @method('DELETE')
-                                                                <button class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar este seminario?')"; type="submit">Eliminar</button>
+                                                                <button class="btn btn-danger mb-1" onclick="return confirm('¿Está seguro de eliminar este seminario?')"; type="submit">Eliminar</button>
                                                             </form>
-                                                        @endcan
-                                                        @can('ver-curso')
-                                                            <a class="btn btn-success" href="{{ route('respuestas', $seminario->id) }}" onclick=ver_respuestas();>Ver respuestas</a>
                                                         @endcan
                                                     </td>   
                                                     <td>
-                                                        <a class="btn btn-info mb-1" href="{{ route('agregarModulo', $seminario->id) }}" onclick=agregar_modulo();>Agregar Módulo</a>
+                                                        @can('editar-curso')
+                                                        <a class="btn btn-success mb-1 mr-3" href="{{ route('agregarModulo', $seminario->id) }}" onclick=agregar_modulo();>Agregar</a>
+                                                        @endcan
+                                                        @can('ver-curso')
+                                                        <a class="btn btn-info mb-1" href="{{ route('verModulos', $seminario->id) }}" onclick=ver_modulos();>Ver módulos</a>
+                                                        @endcan
                                                     </td>
                                                 </tr>
                                             @endforeach

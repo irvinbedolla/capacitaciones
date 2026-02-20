@@ -13,8 +13,6 @@ class Respuesta extends Model
     protected $fillable = [
         'seminario_id',
         'modulo_id',
-        'oportunidades',
-        'tiempo',
         'pregunta',
         'respuestas',
         'respuesta_correcta'

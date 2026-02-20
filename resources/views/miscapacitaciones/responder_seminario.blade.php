@@ -3,7 +3,7 @@
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h3 class="page__heading">Historia y evolución del derecho laboral mexicano</h3>
+        <h3 class="page__heading">{{ $seminario->nombre }}</h3>
     </div>
 
     <div class="section-body">
@@ -11,7 +11,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="text-center mb-4">{{ "Modulo 1" }}</h3>
+                        <h3 class="text-center mb-4">{{ $modulo->nombre ?? 'Módulo 1' }}</h3>
 
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
