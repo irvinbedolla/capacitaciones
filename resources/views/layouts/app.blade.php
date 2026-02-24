@@ -80,6 +80,7 @@
 
 
     <script src="{{ asset('/public/vendor/livewire/livewire.js') }}"></script>
+    @stack('modals')
     </body>
         
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
