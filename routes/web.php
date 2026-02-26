@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\Apps\PermissionManagementController;
 use App\Http\Controllers\Apps\RoleManagementController;
 use App\Http\Controllers\Apps\UserManagementController;
@@ -11,7 +10,6 @@ use App\Http\Controllers\PDFController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\CursosController;
 use App\Http\Controllers\SeminarioController;
 use App\Http\Controllers\ModulosController;
 use App\Http\Controllers\CapacitacionController;
@@ -115,8 +113,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Fin capacitaciones    
     //Mis Capacitaciones
         Route::get('/miscapacitaciones/index',                      [MiscapacitacionController::class, 'index'])->name('miscapacitaciones');
-        Route::get('/miscapacitaciones/seminario/{id}/responder',   [MiscapacitacionController::class, 'responderSeminario'])->name('miscapacitaciones.responder_seminario');
-        Route::post('/miscapacitaciones/seminario/{id}/responder',  [MiscapacitacionController::class, 'guardarRespuestasSeminario'])->name('miscapacitaciones.guardar_respuestas_seminario');
+        Route::get('/seminario/{seminario}/{modulo}',               [MiscapacitacionController::class, 'responderSeminario'])->where(['seminario' => '[0-9]+', 'modulo' => '[0-9]+'])->name('miscapacitaciones.responder_seminario');
+        Route::post('/guardarseminario/{seminario}/{modulo}',       [MiscapacitacionController::class, 'guardarRespuestasSeminario'])->where(['seminario' => '[0-9]+', 'modulo' => '[0-9]+'])->name('miscapacitaciones.guardar_respuestas_seminario');
     //Fin mis capacitaciones
     //Expedientes
         Route::get('/expedientes/index',                        [ExpedienteController::class, 'index'])->name('expedientes.index');
@@ -137,8 +135,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/ponentes/images',                          [PonenteController::class, 'store_image'])->name('ponentes.guardar_foto');
         Route::delete('/ponentes/destroy/{id}',                 [PonenteController::class, 'destroy'])->name('ponentes.delete');
         Route::patch('/ponentes/update/{post}',                 [PonenteController::class, 'update'])->name('ponentes.update');
-
-
 
 
     //Cambiar las contraseña

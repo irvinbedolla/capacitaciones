@@ -45,7 +45,6 @@
 <!--begin::Body-->
 <body {!! printHtmlClasses('body') !!} {!! printHtmlAttributes('body') !!}>
 
-@include('partials/theme-mode/_init')
 
 @yield('content')
 

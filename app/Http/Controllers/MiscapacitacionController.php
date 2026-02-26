@@ -12,6 +12,7 @@ use App\Models\CapacitacionEncuesta;
 use App\Models\CapacitacionPersona;
 use App\Models\Seminario;
 use App\Models\Respuesta;
+use App\Models\ModuloUsuario;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
@@ -25,28 +26,37 @@ class MiscapacitacionController extends Controller
 {
     public function index()
     {
-        $seminarios = Seminario::orderBy('id', 'desc')->get();
+        $seminarios = Seminario::with([
+            'modulos.documentos',
+            'modulos.respuestas',
+            'ponente.fotografia',
+        ])->orderBy('nombre', 'asc')->get();
+
         return view('miscapacitaciones.index', compact('seminarios'));
     }
 
-    public function responderSeminario($id)
+    public function responderSeminario($seminarioId, $moduloId)
     {
-        $seminario = Seminario::findOrFail(1);
-        $modulo = Modulos::where('id_seminario', 1)
-            ->where('numero_modulo', 1)
-            ->first();
-        $preguntas = Respuesta::where('seminario_id', 1)
-            ->where('modulo_id', 1)
+        $seminario = Seminario::findOrFail($seminarioId);
+        $modulo = Modulos::where('id_seminario', $seminarioId)
+            ->where('id', $moduloId)
+            ->firstOrFail();
+        $preguntas = Respuesta::where('seminario_id', $seminarioId)
+            ->where('modulo_id', $moduloId)
             ->get();
+
         $seminario->setRelation('respuestas', $preguntas);
         return view('miscapacitaciones.responder_seminario', compact('seminario', 'modulo'));
     }
 
-    public function guardarRespuestasSeminario(Request $request, $id)
+    public function guardarRespuestasSeminario(Request $request, $seminarioId, $moduloId)
     {
-        $seminario = Seminario::findOrFail(1);
-        $preguntas = Respuesta::where('seminario_id', 1)
-            ->where('modulo_id', 1)
+        $seminario = Seminario::findOrFail($seminarioId);
+        $modulo = Modulos::where('id_seminario', $seminarioId)
+            ->where('id', $moduloId)
+            ->firstOrFail();
+        $preguntas = Respuesta::where('seminario_id', $seminarioId)
+            ->where('modulo_id', $moduloId)
             ->get();
         $seminario->setRelation('respuestas', $preguntas);
         $respuestasUsuario = $request->input('respuestas', []);
@@ -64,6 +74,25 @@ class MiscapacitacionController extends Controller
 
         $porcentaje = $total > 0 ? round(($aciertos / $total) * 100, 2) : 0;
 
-        return view('miscapacitaciones.resultado_seminario', compact('seminario', 'aciertos', 'total', 'porcentaje'));
+        // Guardar o actualizar el progreso del usuario (Falta implementacion...)
+        if (Auth::check()) {
+            ModuloUsuario::updateOrCreate(
+                [
+                    'user_id' => Auth::id(),
+                    'seminario_id' => $seminarioId,
+                    'modulo_id' => $moduloId,
+                ],
+                [
+                    'aciertos' => $aciertos,
+                    'total_preguntas' => $total,
+                    'calificacion' => $porcentaje,
+                    'estatus' => 'completado',
+                ]
+            );
+        }
+
+        return view('miscapacitaciones.resultado_seminario', compact(
+            'seminario', 'modulo', 'aciertos', 'total', 'porcentaje'
+        ));
     }
 }

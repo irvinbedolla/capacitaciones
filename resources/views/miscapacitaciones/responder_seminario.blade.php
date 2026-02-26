@@ -1,4 +1,4 @@
-@extends('layouts.app_editar1')
+@extends('layouts.app_editar')
 
 @section('content')
 <section class="section">
@@ -11,7 +11,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="text-center mb-4">{{ $modulo->nombre ?? 'Módulo 1' }}</h3>
+                        <h3 class="text-center mb-4">{{ $modulo->nombre ?? 'Módulo' }}</h3>
 
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -24,10 +24,10 @@
 
                         @if ($seminario->respuestas->isEmpty())
                             <div class="alert alert-info text-center">
-                                <p class="mb-0">No hay preguntas disponibles en este modulo.</p>
+                                <p class="mb-0">No hay preguntas asignadas a este modulo.</p>
                             </div>
                         @else
-                            <form method="POST" action="{{ route('miscapacitaciones.guardar_respuestas_seminario', $seminario->id) }}">
+                            <form method="POST" action="{{ route('miscapacitaciones.guardar_respuestas_seminario', [$seminario->id, $modulo->id]) }}">
                                 @csrf
 
                                 @foreach ($seminario->respuestas as $index => $pregunta)
@@ -64,7 +64,10 @@
                                     </div>
                                 @endforeach
 
-                                <div class="d-flex justify-content-end mt-4">
+                                <div class="d-flex justify-content-between mt-4">
+                                    <a href="{{ route('miscapacitaciones') }}" class="btn btn-secondary">
+                                        <i class="fas fa-arrow-left mr-2"></i> Regresar
+                                    </a>
                                     <button type="submit" class="btn btn-primary" style="background-color: #6A0F49; border-color: #6A0F49;">
                                         <i class="fas fa-check mr-2"></i> Enviar respuestas
                                     </button>

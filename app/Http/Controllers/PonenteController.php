@@ -87,9 +87,7 @@ class PonenteController extends Controller{
 
         if(isset($data["fotografia"])){
                 $nombre_foto = $data["nombre"].".jpg";
-                $path = Storage::putFileAs(
-                    'ponentes', $request->file('fotografia'), $nombre_foto
-                );
+                $path = $request->file('fotografia')->storeAs('ponentes', $nombre_foto, 'public');
             }
         $data_ponente=array(
                 'id_usuario'            => $data["id_usuario"],
@@ -118,8 +116,7 @@ class PonenteController extends Controller{
         $id_ponente= $ponente->id;
         $foto = Fotografia::where('id_ponente',$id_ponente)->first();
         if($foto){
-            $path = storage_path('app/ponentes/'.$foto->fotografia);
-            unlink($path);
+            Storage::disk('public')->delete('ponentes/'.$foto->fotografia);
         }
         $foto -> delete();
         $ponente->delete();

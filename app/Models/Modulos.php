@@ -29,5 +29,14 @@ class Modulos extends Model
     {
         return $this->belongsTo(Seminario::class, 'id_seminario');
     }
-    
+
+    public function respuestas()
+    {
+        return $this->hasMany(Respuesta::class, 'modulo_id');
+    }
+
+    public function progresosUsuario()
+    {
+        return $this->hasMany(ModuloUsuario::class, 'modulo_id');
+    }
 }

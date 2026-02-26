@@ -10,6 +10,7 @@ use App\Models\Seminario;
 use App\Models\Respuesta;
 use App\Models\Modulos;
 use App\Models\ModulosDocumentos;
+use App\Models\Ponente;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -26,8 +27,8 @@ class SeminarioController extends Controller
 
     public function crear()
     {
-        #$seminarios = Seminario::all();
-        return view('seminario.crear');
+        $ponentes = Ponente::orderBy('nombre')->get();
+        return view('seminario.crear', compact('ponentes'));
     }
 
     public function guardar(Request $request)
@@ -36,15 +37,17 @@ class SeminarioController extends Controller
 
         //Validar documentacion
         request()->validate([
-            'name'      => 'required',
-            'init_date' => 'required|date',
-            'end_date'  => 'required|date',
+            'name'       => 'required',
+            'init_date'  => 'required|date',
+            'end_date'   => 'required|date',
+            'id_ponente' => 'required|exists:ponente,id',
         ], $data);
 
         $data_insert=array(
                 'nombre'            => $data["name"],
                 'fecha_inicial'     => $data["init_date"],
-                'fecha_final'       => $data["end_date"]
+                'fecha_final'       => $data["end_date"],
+                'id_ponente'        => $data["id_ponente"],
         );
 
         Seminario::create($data_insert);
@@ -54,9 +57,9 @@ class SeminarioController extends Controller
 
     public function editar($id)
     {
-        #dd($id)
         $seminario = Seminario::find($id);
-        return view('seminario.editar', compact('seminario'));
+        $ponentes = Ponente::orderBy('nombre')->get();
+        return view('seminario.editar', compact('seminario', 'ponentes'));
     }
 
     public function actualizar(Request $request, $id)
@@ -65,15 +68,17 @@ class SeminarioController extends Controller
 
         //Validar documentacion
         $request->validate([
-            'name'      => 'required',
-            'init_date' => 'required|date',
-            'end_date'  => 'required|date',
+            'name'       => 'required',
+            'init_date'  => 'required|date',
+            'end_date'   => 'required|date',
+            'id_ponente' => 'required|exists:ponente,id',
         ], $input);
 
         $data_update=array(
                 'nombre'            => $input["name"],
                 'fecha_inicial'     => $input["init_date"],
                 'fecha_final'       => $input["end_date"],
+                'id_ponente'        => $input["id_ponente"],
         );
     
         Seminario::where('id', $id)->update($data_update);

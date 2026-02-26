@@ -62,6 +62,19 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="id_ponente">Ponente</label>
+                                            <select name="id_ponente" class="form-control" required>
+                                                <option value="">-- Selecciona un ponente --</option>
+                                                @foreach($ponentes as $ponente)
+                                                    <option value="{{ $ponente->id }}">{{ $ponente->nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback">El ponente es obligatorio.</div>
+                                        </div>
+                                    </div>
                                    
                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                         <button type="submit" class="btn btn-primary">Guardar</button>

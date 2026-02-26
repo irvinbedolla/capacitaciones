@@ -2,25 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Respuesta extends Model
+class ModuloUsuario extends Model
 {
-    protected $table = 'respuestas';
-    protected $primaryKey = 'id';
+    protected $table = 'modulo_usuario';
 
     protected $fillable = [
+        'user_id',
         'seminario_id',
         'modulo_id',
-        'pregunta',
-        'respuestas',
-        'respuesta_correcta'
+        'aciertos',
+        'total_preguntas',
+        'calificacion',
+        'estatus',
     ];
 
-    protected $casts = [
-        'respuestas' => 'array'
-    ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public function seminario()
     {

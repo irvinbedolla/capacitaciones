@@ -37,7 +37,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <label for="name">Nombre</label>
-                                            <input type="text" name="name" class="form-control" value="{{ $seminario->name }}" required>
+                                            <input type="text" name="name" class="form-control" value="{{ $seminario->nombre }}" required>
                                         </div>
                                     </div>
                                     <div class="invalid-feedback">
@@ -47,7 +47,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <label for="init_date">Fecha inicial</label>
-                                            <input type="date" name="init_date" class="form-control" value="{{ $seminario->init_date }}" required>
+                                            <input type="date" name="init_date" class="form-control" value="{{ $seminario->fecha_inicial }}" required>
                                         </div>
                                     </div>
                                     <div class="invalid-feedback">
@@ -57,11 +57,24 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <label for="end_date">Fecha final</label>
-                                            <input type="date" name="end_date" class="form-control" value="{{ $seminario->end_date }}" required>
+                                            <input type="date" name="end_date" class="form-control" value="{{ $seminario->fecha_final }}" required>
                                         </div>
                                     </div>
                                     <div class="invalid-feedback">
                                         La fecha final es obligatoria.
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <label for="id_ponente">Ponente</label>
+                                            <select name="id_ponente" class="form-control" required>
+                                                <option value="">-- Selecciona un ponente --</option>
+                                                @foreach($ponentes as $ponente)
+                                                    <option value="{{ $ponente->id }}" {{ $seminario->id_ponente == $ponente->id ? 'selected' : '' }}>{{ $ponente->nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback">El ponente es obligatorio.</div>
+                                        </div>
                                     </div>
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">

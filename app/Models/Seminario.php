@@ -16,5 +16,19 @@ class Seminario extends Model
     {
         return $this->hasMany(Respuesta::class, 'seminario_id');
     }
-    
+
+    public function modulos()
+    {
+        return $this->hasMany(Modulos::class, 'id_seminario')->orderBy('numero_modulo');
+    }
+
+    public function ponente()
+    {
+        return $this->belongsTo(Ponente::class, 'id_ponente');
+    }
+
+    public function progresosUsuario()
+    {
+        return $this->hasMany(ModuloUsuario::class, 'seminario_id');
+    }
 }
