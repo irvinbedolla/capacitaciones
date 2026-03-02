@@ -161,6 +161,17 @@
                                 </div>
                             @endif
 
+                            @if (\Session::has('error'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <ul>
+                                        <li>{!! \Session::get('error') !!}</li>
+                                    </ul>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
+
                             @if($seminarios->isEmpty())
                                 <div class="alert alert-info text-center">
                                     <p class="mb-0">No hay seminarios disponibles por el momento.</p>
@@ -210,10 +221,16 @@
                                                                     $claveProgreso = $seminario->id . '-' . $modulo->id;
                                                                     $progresoModulo = $progreso[$claveProgreso] ?? null;
                                                                     $estaCompletado = $progresoModulo && $progresoModulo->estatus === 'completado';
+                                                                    $maxIntentos = $modulo->max_intentos ?? 2;  
+                                                                    $intentosUsados = $progresoModulo ? $progresoModulo->intentos : 0;
+                                                                    $intentosRestantes = $maxIntentos - $intentosUsados;
+                                                                    $sinIntentos = $intentosRestantes <= 0;
                                                                 @endphp
                                                                 <div class="lms-topic-item mb-2">
                                                                     <button class="btn btn-block lms-topic-btn collapsed" data-toggle="collapse" data-target="#topic_{{ $seminario->id }}_{{ $modulo->id }}">
-                                                                        {{ $modulo->nombre }}
+                                                                        <span>
+                                                                            {{ $modulo->nombre }}
+                                                                        </span>
                                                                         <i class="fas fa-chevron-down float-right mt-1"></i>
                                                                     </button>
                                                                     <div id="topic_{{ $seminario->id }}_{{ $modulo->id }}" class="collapse" data-parent="#accordionSeminario{{ $seminario->id }}">
@@ -246,10 +263,42 @@
 
                                                                         {{-- Boton del cuestionario --}}
                                                                         @if($modulo->respuestas->count() > 0)
-                                                                            <div class="p-3 bg-light border-top border-bottom text-right">
-                                                                                <a href="{{ route('miscapacitaciones.responder_seminario', [$seminario->id, $modulo->id]) }}" class="btn btn-primary btn-sm" style="background-color: #6A0F49; border-color: #6A0F49;">
-                                                                                        <i class="fas fa-pencil-alt mr-1"></i> Contestar cuestionario
-                                                                                    </a>
+                                                                            <div class="p-3 bg-light border-top border-bottom">
+                                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                                    <div>
+                                                                                        @if($estaCompletado)
+                                                                                            <span class="d-block mb-1">
+                                                                                                <i class="fas fa-check-circle text-success mr-1"></i>
+                                                                                                <strong>Calificación:</strong>
+                                                                                                <span style="color: {{ $progresoModulo->calificacion >= 70 ? '#28a745' : '#dc3545' }}; font-weight: bold;">
+                                                                                                    {{ $progresoModulo->calificacion }}%
+                                                                                                </span>
+                                                                                                <small class="text-muted">({{ $progresoModulo->aciertos }}/{{ $progresoModulo->total_preguntas }} aciertos)</small>
+                                                                                            </span>
+                                                                                        @endif
+                                                                                        <small class="text-muted">
+                                                                                            <i class="fas fa-redo mr-1"></i>
+                                                                                            Intentos: {{ $intentosUsados }}/{{ $maxIntentos }}
+                                                                                            @if($sinIntentos)
+                                                                                                <span class="text-danger font-weight-bold ml-1">— Sin intentos disponibles</span>
+                                                                                            @else
+                                                                                                <span class="text-info ml-1">— {{ $intentosRestantes }} restante(s)</span>
+                                                                                            @endif
+                                                                                        </small>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        @if($sinIntentos)
+                                                                                            <button class="btn btn-secondary btn-sm" disabled>
+                                                                                                <i class="fas fa-ban mr-1"></i> Sin intentos
+                                                                                            </button>
+                                                                                        @else
+                                                                                            <a href="{{ route('miscapacitaciones.responder_seminario', [$seminario->id, $modulo->id]) }}" class="btn btn-primary btn-sm" style="background-color: #6A0F49; border-color: #6A0F49;">
+                                                                                                <i class="fas fa-pencil-alt mr-1"></i>
+                                                                                                {{ $estaCompletado ? 'Reintentar cuestionario' : 'Contestar cuestionario' }}
+                                                                                            </a>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                         @endif
                                                                     </div>

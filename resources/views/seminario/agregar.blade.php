@@ -77,7 +77,7 @@
                                             <label for="contenido">Contenido</label>
                                             <input type="text" class="form-control" name="contenido" required>
                                             <div class="invalid-feedback">
-                                                El contenido es obligatorio.
+                                                El contenido es obligatorio. 
                                             </div>
                                         </div>
                                     </div>
@@ -92,6 +92,26 @@
                                             </select>
                                             <div class="invalid-feedback">
                                                 El estado es obligatorio.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="max_intentos">Máximo de intentos del cuestionario</label>
+                                            <input type="number" class="form-control" name="max_intentos" value="2" min="1" required>
+                                            <div class="invalid-feedback">
+                                                El número de intentos es obligatorio.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="tiempo_limite">Tiempo límite (minutos)</label>
+                                            <input type="number" class="form-control" name="tiempo_limite" value="50" min="1" required>
+                                            <div class="invalid-feedback">
+                                                El tiempo límite es obligatorio.
                                             </div>
                                         </div>
                                     </div>

@@ -14,6 +14,7 @@ class ModuloUsuario extends Model
         'modulo_id',
         'aciertos',
         'total_preguntas',
+        'intentos',
         'calificacion',
         'estatus',
     ];

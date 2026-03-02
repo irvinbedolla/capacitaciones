@@ -32,7 +32,17 @@ class MiscapacitacionController extends Controller
             'ponente.fotografia',
         ])->orderBy('nombre', 'asc')->get();
 
-        return view('miscapacitaciones.index', compact('seminarios'));
+        // Obtener el progreso del usuario autenticado para todos los módulos
+        $progreso = collect();
+        if (Auth::check()) {
+            $progreso = ModuloUsuario::where('user_id', Auth::id())
+                ->get()
+                ->keyBy(function ($item) {
+                    return $item->seminario_id . '-' . $item->modulo_id;
+                });
+        }
+
+        return view('miscapacitaciones.index', compact('seminarios', 'progreso'));
     }
 
     public function responderSeminario($seminarioId, $moduloId)
@@ -45,8 +55,57 @@ class MiscapacitacionController extends Controller
             ->where('modulo_id', $moduloId)
             ->get();
 
+        // Verificar intentos disponibles y restar un intento al entrar
+        $maxIntentos = $modulo->max_intentos ?? 2;
+        $tiempoLimite = $modulo->tiempo_limite ?? 50;
+        $intentosUsados = 0;
+
+        if (Auth::check()) {
+            $progresoUsuario = ModuloUsuario::where('user_id', Auth::id())
+                ->where('seminario_id', $seminarioId)
+                ->where('modulo_id', $moduloId)
+                ->first();
+
+            if ($progresoUsuario) {
+                $intentosUsados = $progresoUsuario->intentos;
+            }
+        }
+
+        $intentosRestantes = $maxIntentos - $intentosUsados;
+
+        // Si ya no tiene intentos, redirigir
+        if ($intentosRestantes <= 0) {
+            return redirect()->route('miscapacitaciones')
+                ->with('error', 'Ya no tienes intentos disponibles para el cuestionario del módulo: ' . $modulo->nombre);
+        }
+
+        // Restar un intento al entrar al cuestionario
+        if (Auth::check()) {
+            $registro = ModuloUsuario::firstOrCreate(
+                [
+                    'user_id' => Auth::id(),
+                    'seminario_id' => $seminarioId,
+                    'modulo_id' => $moduloId,
+                ],
+                [
+                    'aciertos' => 0,
+                    'total_preguntas' => 0,
+                    'calificacion' => 0,
+                    'estatus' => 'pendiente',
+                    'intentos' => 0,
+                ]
+            );
+            
+            $registro->intentos = ($registro->intentos ?? 0) + 1;
+            $registro->save();
+
+            $intentosRestantes = $maxIntentos - $registro->intentos;
+        }
+
         $seminario->setRelation('respuestas', $preguntas);
-        return view('miscapacitaciones.responder_seminario', compact('seminario', 'modulo'));
+        return view('miscapacitaciones.responder_seminario', compact(
+            'seminario', 'modulo', 'tiempoLimite', 'intentosRestantes'
+        ));
     }
 
     public function guardarRespuestasSeminario(Request $request, $seminarioId, $moduloId)
@@ -55,6 +114,23 @@ class MiscapacitacionController extends Controller
         $modulo = Modulos::where('id_seminario', $seminarioId)
             ->where('id', $moduloId)
             ->firstOrFail();
+
+        // verificar que exista el registro
+        $maxIntentos = $modulo->max_intentos ?? 2;
+        $intentosRestantes = $maxIntentos;
+
+        if (Auth::check()) {
+            $progresoUsuario = ModuloUsuario::where('user_id', Auth::id())
+                ->where('seminario_id', $seminarioId)
+                ->where('modulo_id', $moduloId)
+                ->first();
+
+            if (!$progresoUsuario) {
+                return redirect()->route('miscapacitaciones')
+                    ->with('error', 'Debes entrar al cuestionario primero.');
+            }
+        }
+
         $preguntas = Respuesta::where('seminario_id', $seminarioId)
             ->where('modulo_id', $moduloId)
             ->get();
@@ -74,25 +150,24 @@ class MiscapacitacionController extends Controller
 
         $porcentaje = $total > 0 ? round(($aciertos / $total) * 100, 2) : 0;
 
-        // Guardar o actualizar el progreso del usuario (Falta implementacion...)
+        // Actualizar progreso del usuario
         if (Auth::check()) {
-            ModuloUsuario::updateOrCreate(
-                [
-                    'user_id' => Auth::id(),
-                    'seminario_id' => $seminarioId,
-                    'modulo_id' => $moduloId,
-                ],
-                [
-                    'aciertos' => $aciertos,
-                    'total_preguntas' => $total,
-                    'calificacion' => $porcentaje,
-                    'estatus' => 'completado',
-                ]
-            );
+            $registro = ModuloUsuario::where('user_id', Auth::id())
+                ->where('seminario_id', $seminarioId)
+                ->where('modulo_id', $moduloId)
+                ->first();
+
+            $registro->aciertos = $aciertos;
+            $registro->total_preguntas = $total;
+            $registro->calificacion = $porcentaje;
+            $registro->estatus = 'completado';
+            $registro->save();
+
+            $intentosRestantes = $maxIntentos - $registro->intentos;
         }
 
         return view('miscapacitaciones.resultado_seminario', compact(
-            'seminario', 'modulo', 'aciertos', 'total', 'porcentaje'
+            'seminario', 'modulo', 'aciertos', 'total', 'porcentaje', 'intentosRestantes'
         ));
     }
 }

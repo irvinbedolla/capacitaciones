@@ -17,7 +17,9 @@ class Modulos extends Model
         'nombre',
         'contenido',
         'id_ponente',
-        'status'
+        'status',
+        'max_intentos',
+        'tiempo_limite',
     ];
 
     public function documentos()

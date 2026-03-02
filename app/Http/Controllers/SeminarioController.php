@@ -110,6 +110,8 @@ class SeminarioController extends Controller
             'numero_modulo' => 'required|numeric',
             'contenido'     => 'required|string',
             'estado'        => 'required|in:pendiente,evaluado',
+            'max_intentos'  => 'required|integer|min:1',
+            'tiempo_limite' => 'required|integer|min:1',
             'tipo_recursos' => 'required|array|min:1',
             'tipo_recursos.*' => 'required|in:pdf,url',
         ]);
@@ -124,7 +126,9 @@ class SeminarioController extends Controller
                 'nombre'        => $request->name,
                 'contenido'     => $request->contenido,
                 'id_ponente'    => 1, // Id de ponente de prueba
-                'status'        => $request->estado
+                'status'        => $request->estado,
+                'max_intentos'  => $request->max_intentos,
+                'tiempo_limite' => $request->tiempo_limite,
             ]);
 
             // Procesar recursos dinámicos
