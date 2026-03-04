@@ -109,7 +109,6 @@ class SeminarioController extends Controller
             'name'          => 'required|string|max:255',
             'numero_modulo' => 'required|numeric',
             'contenido'     => 'required|string',
-            'estado'        => 'required|in:pendiente,evaluado',
             'max_intentos'  => 'required|integer|min:1',
             'tiempo_limite' => 'required|integer|min:1',
             'tipo_recursos' => 'required|array|min:1',
@@ -119,6 +118,11 @@ class SeminarioController extends Controller
         try {
             DB::beginTransaction();
 
+            $directorioDocumentos = public_path('documentos_modulo');
+            if (!file_exists($directorioDocumentos)) {
+                mkdir($directorioDocumentos, 0755, true);
+            }
+
             // Insertar en tabla modulos
             $modulo = Modulos::create([
                 'id_seminario'  => $id,
@@ -126,7 +130,7 @@ class SeminarioController extends Controller
                 'nombre'        => $request->name,
                 'contenido'     => $request->contenido,
                 'id_ponente'    => 1, // Id de ponente de prueba
-                'status'        => $request->estado,
+                'status'        => 'pendiente',
                 'max_intentos'  => $request->max_intentos,
                 'tiempo_limite' => $request->tiempo_limite,
             ]);
@@ -150,7 +154,8 @@ class SeminarioController extends Controller
                     // Guardar el archivo PDF
                     $archivo = $recursosPdf[$indicePdf];
                     $nombreArchivo = time() . '_' . $indicePdf . '_' . $archivo->getClientOriginalName();
-                    $rutaPdf = $archivo->storeAs('documentos_modulo', $nombreArchivo, 'public');
+                    
+                    $archivo->move(public_path('documentos_modulo'), $nombreArchivo);
                     
                     $documentoData['nombre'] = $nombreArchivo;
                     

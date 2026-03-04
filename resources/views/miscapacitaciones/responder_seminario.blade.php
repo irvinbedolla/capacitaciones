@@ -61,7 +61,7 @@
                             <form method="POST" id="formCuestionario" action="{{ route('miscapacitaciones.guardar_respuestas_seminario', [$seminario->id, $modulo->id]) }}">
                                 @csrf
 
-                                @foreach ($seminario->respuestas as $index => $pregunta)
+                                @foreach ($seminario->respuestas->shuffle() as $index => $pregunta)
                                     @php
                                         $items = is_array($pregunta->respuestas)
                                             ? $pregunta->respuestas
@@ -70,7 +70,6 @@
 
                                     <div class="card mb-3">
                                         <div class="card-body">
-                                            <h5 class="mb-3">Pregunta {{ $index + 1 }}</h5>
 
                                             <p class="mb-4">{{ $pregunta->pregunta }}</p>
 

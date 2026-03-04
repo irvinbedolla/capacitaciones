@@ -1,6 +1,10 @@
 @extends('layouts.app')
-
 @section('content')
+
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-app" viewBox="0 0 16 16">
+  <path d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4z"/>
+</svg>
+
 <style>
     .tab {
         overflow-x: auto;
@@ -212,7 +216,7 @@
 
                                                     @if($seminario->modulos->isEmpty())
                                                         <div class="alert alert-warning">
-                                                            <i class="fas fa-info-circle mr-1"></i> Este seminario aun no tiene contenido.
+                                                            <i class="bi bi-slash-circle"></i> Este seminario aun no tiene contenido.
                                                         </div>
                                                     @else
                                                         <div class="accordion" id="accordionSeminario{{ $seminario->id }}">
@@ -231,28 +235,28 @@
                                                                         <span>
                                                                             {{ $modulo->nombre }}
                                                                         </span>
-                                                                        <i class="fas fa-chevron-down float-right mt-1"></i>
+                                                                        <i class="bi bi-list float-right mt-1"></i>
                                                                     </button>
                                                                     <div id="topic_{{ $seminario->id }}_{{ $modulo->id }}" class="collapse" data-parent="#accordionSeminario{{ $seminario->id }}">
                                                                         {{-- Documentos del modulo --}}
                                                                         @if($modulo->documentos->isNotEmpty())
                                                                             <div class="p-3 bg-light border-top">
-                                                                                <strong class="d-block mb-2"><i class="fas fa-folder-open mr-1"></i> Materiales del módulo:</strong>
+                                                                                <strong class="d-block mb-2"><i class="bi bi-stop-fill mr-1"></i> Materiales del módulo:</strong>
                                                                                 @foreach($modulo->documentos as $documento)
                                                                                     <div class="doc-item">
                                                                                         @if($documento->tipo === 'pdf')
-                                                                                            <i class="fas fa-file-pdf"></i>
-                                                                                            <a href="{{ asset('documentos_modulo/' . $documento->nombre) }}" target="_blank">
+                                                                                            <i class="fas fa-check-circle text-success mr-1"></i>
+                                                                                            <a href="{{ asset('/public/documentos_modulo/' . $documento->nombre) }}" target="_blank">
                                                                                                 {{ $documento->nombre }}
                                                                                             </a>
                                                                                         @elseif($documento->tipo === 'url')
-                                                                                            <i class="fas fa-link"></i>
+                                                                                            <i class="fas fa-check-circle text-success mr-1"></i>
                                                                                             <a href="{{ $documento->nombre }}" target="_blank" rel="noopener">
                                                                                                 {{ $documento->nombre }}
                                                                                             </a>
                                                                                         @else
-                                                                                            <i class="fas fa-file"></i>
-                                                                                            <a href="{{ asset('documentos_modulo/' . $documento->nombre) }}" target="_blank">
+                                                                                            <i class="fas fa-check-circle text-success mr-1"></i>
+                                                                                            <a href="{{ asset('/public/documentos_modulo/' . $documento->nombre) }}" target="_blank">
                                                                                                 {{ $documento->nombre }}
                                                                                             </a>
                                                                                         @endif
@@ -293,7 +297,7 @@
                                                                                             </button>
                                                                                         @else
                                                                                             <a href="{{ route('miscapacitaciones.responder_seminario', [$seminario->id, $modulo->id]) }}" class="btn btn-primary btn-sm" style="background-color: #6A0F49; border-color: #6A0F49;">
-                                                                                                <i class="fas fa-pencil-alt mr-1"></i>
+                                                                                                <i class="bi bi-clipboard2-fill"></i>
                                                                                                 {{ $estaCompletado ? 'Reintentar cuestionario' : 'Contestar cuestionario' }}
                                                                                             </a>
                                                                                         @endif
@@ -305,6 +309,41 @@
                                                                 </div>
                                                             @endforeach
                                                         </div>
+
+                                                        {{-- Verifica modulos contestados --}}
+                                                        @php
+                                                            $modulosConCuestionario = $seminario->modulos->filter(function ($mod) {
+                                                                return $mod->respuestas->count() > 0;
+                                                            });
+                                                            
+                                                            // Verifica que esten completados
+                                                            $todosCompletados = $modulosConCuestionario->count() > 0 && $modulosConCuestionario->every(function ($mod) use ($seminario, $progreso) {
+                                                                $clave = $seminario->id . '-' . $mod->id;
+                                                                $prog = $progreso[$clave] ?? null;
+                                                                return $prog && $prog->estatus === 'completado';
+                                                            });
+
+                                                            // Promedio de calificaciones
+                                                            $promedioSeminario = 0;
+                                                            if ($todosCompletados) {
+                                                                $calificaciones = $modulosConCuestionario->map(function ($mod) use ($seminario, $progreso) {
+                                                                    $clave = $seminario->id . '-' . $mod->id;
+                                                                    return $progreso[$clave]->calificacion ?? 0;
+                                                                });
+                                                                $promedioSeminario = $calificaciones->avg();
+                                                            }
+                                                        @endphp
+
+                                                        @if($todosCompletados && $promedioSeminario >= 80)
+                                                            <div class="text-center mt-3 p-3" style="background: linear-gradient(135deg, #d4edda, #c3e6cb); border-radius: 10px;">
+                                                                <strong class="text-success d-block mb-2">
+                                                                    Has completado todos los cuestionarios del seminario.
+                                                                </strong>
+                                                                <a href="{{ route('PDFCertificado', $seminario->id) }}" class="btn btn-success" target="_blank">
+                                                                    <i class="fas mr-1"></i> Descargar certificado
+                                                                </a>
+                                                            </div>
+                                                        @endif
                                                     @endif
                                                 </div>
                                             </div>

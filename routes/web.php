@@ -115,6 +115,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/miscapacitaciones/index',                      [MiscapacitacionController::class, 'index'])->name('miscapacitaciones');
         Route::get('/seminario/{seminario}/{modulo}',               [MiscapacitacionController::class, 'responderSeminario'])->where(['seminario' => '[0-9]+', 'modulo' => '[0-9]+'])->name('miscapacitaciones.responder_seminario');
         Route::post('/guardarseminario/{seminario}/{modulo}',       [MiscapacitacionController::class, 'guardarRespuestasSeminario'])->where(['seminario' => '[0-9]+', 'modulo' => '[0-9]+'])->name('miscapacitaciones.guardar_respuestas_seminario');
+        Route::get('/miscapacitaciones/certificado/{seminario}',    [MiscapacitacionController::class, 'VerPDFCertificado'])->where('seminario', '[0-9]+')->name('PDFCertificado');
     //Fin mis capacitaciones
     //Expedientes
         Route::get('/expedientes/index',                        [ExpedienteController::class, 'index'])->name('expedientes.index');

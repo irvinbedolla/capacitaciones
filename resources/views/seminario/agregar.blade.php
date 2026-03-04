@@ -81,21 +81,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="estado">Estado</label>
-                                            <select name="estado" class="form-control" required>
-                                                <option value="">-- Seleccione un estado --</option>
-                                                <option value="pendiente">Pendiente</option>
-                                                <option value="evaluado">Evaluado</option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                El estado es obligatorio.
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="col-xs-12 col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <label for="max_intentos">Máximo de intentos del cuestionario</label>

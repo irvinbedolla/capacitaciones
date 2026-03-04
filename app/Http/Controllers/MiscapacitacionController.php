@@ -157,9 +157,13 @@ class MiscapacitacionController extends Controller
                 ->where('modulo_id', $moduloId)
                 ->first();
 
-            $registro->aciertos = $aciertos;
-            $registro->total_preguntas = $total;
-            $registro->calificacion = $porcentaje;
+            // Solo se guarda una calificacion que es mejor que la anterior.
+            if ($porcentaje > ($registro->calificacion ?? 0)) {
+                $registro->aciertos = $aciertos;
+                $registro->total_preguntas = $total;
+                $registro->calificacion = $porcentaje;
+            }
+            
             $registro->estatus = 'completado';
             $registro->save();
 
@@ -169,5 +173,18 @@ class MiscapacitacionController extends Controller
         return view('miscapacitaciones.resultado_seminario', compact(
             'seminario', 'modulo', 'aciertos', 'total', 'porcentaje', 'intentosRestantes'
         ));
+    }
+
+    //Generar certificado del seminario en PDF
+    public function VerPDFCertificado($seminarioId)
+    {
+        $html = view('PDF.Certificados.CertificadoSeminario')->render();
+
+        $pdf = \PDF::loadHTML($html)
+            ->setPaper('a4', 'landscape')
+            ->setOption('isHtml5ParserEnabled', true)
+            ->setOption('isPhpEnabled', true);
+
+        return $pdf->stream('certificado.pdf');
     }
 }
