@@ -272,7 +272,7 @@
                                                                                     <div>
                                                                                         @if($estaCompletado)
                                                                                             <span class="d-block mb-1">
-                                                                                                <i class="fas fa-check-circle text-success mr-1"></i>
+                                                                                                <i class="bi bi-stop-fill mr-1"></i>
                                                                                                 <strong>Calificación:</strong>
                                                                                                 <span style="color: {{ $progresoModulo->calificacion >= 70 ? '#28a745' : '#dc3545' }}; font-weight: bold;">
                                                                                                     {{ $progresoModulo->calificacion }}%
@@ -281,7 +281,7 @@
                                                                                             </span>
                                                                                         @endif
                                                                                         <small class="text-muted">
-                                                                                            <i class="fas fa-redo mr-1"></i>
+                                                                                            <i class="bi bi-arrow-clockwise"></i>
                                                                                             Intentos: {{ $intentosUsados }}/{{ $maxIntentos }}
                                                                                             @if($sinIntentos)
                                                                                                 <span class="text-danger font-weight-bold ml-1">— Sin intentos disponibles</span>

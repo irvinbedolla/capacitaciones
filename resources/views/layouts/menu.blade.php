@@ -23,7 +23,7 @@
                 <i class="bi bi-graph-down"></i><span class="text-dark" onclick="expedientes()">Expediente</span>
             </a>
             <a class="nav-link" href="{{ route('ponentes') }}">
-                <i class="bi bi-graph-down"></i><span class="text-dark" onclick="Ponentes()">Ponentes</span>
+                <i class="bi bi-people-fill"></i></i><span class="text-dark" onclick="Ponentes()">Ponentes</span>
             </a>
         @endrole
     @endauth

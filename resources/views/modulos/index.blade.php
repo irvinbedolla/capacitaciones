@@ -35,6 +35,15 @@
                                     <h5 class="mb-0" style="color: #6A0F49;">
                                         Módulo {{ $modulo->numero_modulo }} - {{ $modulo->nombre }}
                                     </h5>
+                                    <form action="{{ route('modulos.destroyModulo', $modulo->id) }}"
+                                          method="POST"
+                                          onsubmit="return confirm('¿Estás seguro de eliminar este módulo y todos sus recursos?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            Eliminar Módulo
+                                        </button>
+                                    </form>
                                 </div>
                                 <div class="card-body">
                                     @if($modulo->contenido)
@@ -45,15 +54,15 @@
                                     @endif
 
                                     @php
-                                        $docs = $modulo->ModulosDocumentos ?? $modulo->documentos ?? collect();
+                                        $docs = $modulo->documentos ?? collect();
                                     @endphp
 
                                     <div>
                                         <div class="d-flex justify-content-between align-items-center mb-2">
                                             <h6 style="color: #6A0F49;" class="mb-0"><strong>📄 Documentos:</strong></h6>
                                             <button class="btn btn-sm btn-success"
-                                                    data-toggle="modal"
-                                                    data-target="#modalAgregarDoc-{{ $modulo->id }}">
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalAgregarDoc-{{ $modulo->id }}">
                                                 Agregar recurso
                                             </button>
                                         </div>
@@ -88,8 +97,8 @@
                                                         </div>
                                                         <div class="d-flex">
                                                             <button class="btn btn-sm btn-warning mr-1"
-                                                                    data-toggle="modal"
-                                                                    data-target="#modalEditarDoc-{{ $doc->id }}">
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalEditarDoc-{{ $doc->id }}">
                                                                 Editar
                                                             </button>
                                                             <form action="{{ route('modulos.destroy', $doc->id) }}"
@@ -128,9 +137,7 @@
                                             @csrf
                                             <div class="modal-header" style="background-color: #6A0F49; color: white;">
                                                 <h5 class="modal-title">Agregar Recurso - Módulo {{ $modulo->numero_modulo }}</h5>
-                                                <button type="button" class="close text-white" data-dismiss="modal">
-                                                    <span>&times;</span>
-                                                </button>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="form-group">
@@ -144,7 +151,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 <button type="submit" class="btn btn-success">Agregar</button>
                                             </div>
                                         </form>
@@ -172,9 +179,7 @@
                                                 @method('PUT')
                                                 <div class="modal-header" style="background-color: #6A0F49; color: white;">
                                                     <h5 class="modal-title">Editar Recurso</h5>
-                                                    <button type="button" class="close text-white" data-dismiss="modal">
-                                                        <span>&times;</span>
-                                                    </button>
+                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <p class="text-muted">Recurso actual: <strong>{{ $nombreMostrar }}</strong></p>
@@ -190,14 +195,14 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                     <button type="submit" class="btn btn-warning">Guardar cambios</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach>
+                            @endforeach
                             @endpush
 
                         @empty

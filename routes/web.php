@@ -171,7 +171,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/modulos/index/{id}',            [ModulosController::class, 'index'])->name('verModulos');
     Route::post('/modulos/{modulo}/documentos', [ModulosController::class, 'store'])->name('modulos.store');
     Route::put('/modulos/documentos/{documento}', [ModulosController::class, 'update'])->name('modulos.update');
-    Route::delete('/modulos/documentos/{documento}', [ModulosController::class, 'destroy'])->name('modulos.destroy');    
+    Route::delete('/modulos/documentos/{documento}', [ModulosController::class, 'destroy'])->name('modulos.destroy');
+    Route::delete('/modulos/{modulo}', [ModulosController::class, 'destroyModulo'])->name('modulos.destroyModulo');    
     //Fin de módulos
 
 });

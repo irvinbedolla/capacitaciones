@@ -132,4 +132,5 @@
     }(jQuery));
 </script>
 @yield('scripts')
+@stack('modals')
 </html>
