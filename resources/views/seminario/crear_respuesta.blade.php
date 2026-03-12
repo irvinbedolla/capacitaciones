@@ -52,52 +52,41 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <label>Pregunta</label>
-                                        <textarea name="pregunta"
-                                                  class="form-control"
-                                                  required>{{ old('pregunta') }}</textarea>
+                                <div class="row">   
                                     </div>
-                                </div>
 
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <label>Respuestas (seleccione la correcta)</label>
-                                </div>
-
-                                @for ($i = 0; $i < 4; $i++)
-                                    <div class="col-xs-12 col-sm-12 col-md-10">
+                                <div id="contenedor-preguntas">
+                                    
+                                    <div class="pregunta-item border p-3 mb-4 rounded" data-index="0">
+                                        
                                         <div class="form-group">
-                                            <input type="text"
-                                                   name="respuestas[]"
-                                                   class="form-control"
-                                                   placeholder="Respuesta {{ $i + 1 }}"
-                                                   value="{{ old('respuestas.' . $i) }}"
-                                                   required>
+                                            <label>Pregunta</label>
+                                            <textarea name="preguntas[0][texto]" class="form-control" required></textarea>
                                         </div>
-                                    </div>
 
-                                    <div class="col-xs-12 col-sm-12 col-md-2 text-center">
-                                        <div class="form-group">
-                                            <input type="radio"
-                                                   name="respuesta_correcta"
-                                                   value="{{ $i }}"
-                                                   required>
-                                        </div>
+                                        <label>Respuestas (seleccione la correcta)</label>
+                                        
+                                        @for ($i = 0; $i < 4; $i++)
+                                            <div class="row w-100 mb-2">
+                                                <div class="col-xs-10 col-sm-10 col-md-10">
+                                                    <input type="text" name="preguntas[0][respuestas][]" class="form-control" placeholder="Respuesta {{ $i + 1 }}" required>
+                                                </div>
+                                                <div class="col-xs-2 col-sm-2 col-md-2 text-center">
+                                                    <input type="radio" name="preguntas[0][respuesta_correcta]" value="{{ $i }}" required>
+                                                </div>
+                                            </div>
+                                        @endfor
                                     </div>
-                                @endfor
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <button type="submit"
-                                            class="btn btn-primary"
-                                            style="background-color: #6A0F49">
-                                        Guardar
+                                    
+                                </div> <div class="col-12 mb-4">
+                                    <button type="button" id="btn-agregar-pregunta" class="btn btn-success">
+                                        + Agregar otra pregunta
                                     </button>
+                                </div>
 
-                                    <a href="{{ route('respuestas', $seminario->id) }}"
-                                       class="btn btn-secondary">
-                                        Cancelar
-                                    </a>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary" style="background-color: #6A0F49">Guardar</button>
+                                    <a href="{{ route('respuestas', $seminario->id) }}" class="btn btn-secondary">Cancelar</a>
                                 </div>
 
                             </div>
@@ -112,3 +101,49 @@
 
 </section>
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let indexPregunta = 1; 
+    const contenedor = document.getElementById('contenedor-preguntas');
+    const btnAgregar = document.getElementById('btn-agregar-pregunta');
+
+    btnAgregar.addEventListener('click', function() {
+        const htmlNuevaPregunta = `
+            <div class="pregunta-item border p-3 mb-4 rounded position-relative" data-index="${indexPregunta}">
+                
+                <button type="button" class="btn btn-danger btn-sm position-absolute btn-eliminar" style="top: 10px; right: 10px;">
+                    X Eliminar
+                </button>
+                
+                <div class="form-group">
+                    <label>Pregunta</label>
+                    <textarea name="preguntas[${indexPregunta}][texto]" class="form-control" required></textarea>
+                </div>
+
+                <label>Respuestas (seleccione la correcta)</label>
+                
+                ${[0, 1, 2, 3].map(i => `
+                    <div class="row w-100 mb-2">
+                        <div class="col-xs-10 col-sm-10 col-md-10">
+                            <input type="text" name="preguntas[${indexPregunta}][respuestas][]" class="form-control" placeholder="Respuesta ${i + 1}" required>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 text-center">
+                            <input type="radio" name="preguntas[${indexPregunta}][respuesta_correcta]" value="${i}" required>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+
+        contenedor.insertAdjacentHTML('beforeend', htmlNuevaPregunta);
+        indexPregunta++;
+    });
+
+    contenedor.addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn-eliminar')) {
+            e.target.closest('.pregunta-item').remove();
+        }
+    });
+});
+</script>

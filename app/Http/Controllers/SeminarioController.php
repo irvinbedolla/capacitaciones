@@ -206,25 +206,28 @@ class SeminarioController extends Controller
 
     public function guardarRespuesta(Request $request, $id)
     {
-        $request->validate([
-            'pregunta' => 'required|string',
-            'respuestas' => 'required|array|size:4',
-            'respuestas.*' => 'required|string',
-            'respuesta_correcta' => 'required|integer|between:0,3',
-            'modulo_id' => 'required|exists:modulos,id'
-        ]);
+    $request->validate([
+        'modulo_id' => 'required|exists:modulos,id',
+        'preguntas' => 'required|array|min:1',
+        'preguntas.*.texto' => 'required|string',
+        'preguntas.*.respuestas' => 'required|array|size:4',
+        'preguntas.*.respuestas.*' => 'required|string',
+        'preguntas.*.respuesta_correcta' => 'required|integer|between:0,3',
+    ]);
 
+    foreach ($request->preguntas as $preguntaData) {
         Respuesta::create([
             'seminario_id' => $id,
             'modulo_id' => $request->modulo_id,
-            'pregunta' => $request->pregunta,
-            'respuestas' => json_encode($request->respuestas),
-            'respuesta_correcta' => $request->respuesta_correcta
+            'pregunta' => $preguntaData['texto'], 
+            'respuestas' => json_encode($preguntaData['respuestas']),
+            'respuesta_correcta' => $preguntaData['respuesta_correcta']
         ]);
+    }
 
-        return redirect()
-            ->route('respuestas', $id)
-            ->with('success', 'Pregunta guardada correctamente');
+    return redirect()
+        ->route('respuestas', $id)
+        ->with('success', 'Pregunta(s) guardada(s) correctamente');
     }
 
     public function editarRespuesta($id)
